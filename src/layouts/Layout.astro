@@ -1,0 +1,542 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/logo.png';
+import { contact, localePath, type Translations } from '../i18n';
+
+interface Props {
+  t: Translations;
+}
+
+const { t } = Astro.props;
+const base = (path: string) => localePath(t.locale, path);
+
+interface NavLink {
+  label: string;
+  href: string;
+  children?: { label: string; href: string }[];
+}
+
+const navLinks: NavLink[] = [
+  { label: t.nav.about, href: base('/about-us') },
+  { label: t.nav.join, href: base('/join-us') },
+  {
+    label: t.nav.sundayService,
+    href: base('/sunday-service'),
+    children: [
+      { label: t.nav.sundayServiceSub.notes, href: base('/sunday-service/notes') },
+      { label: t.nav.sundayServiceSub.circle, href: base('/sunday-service/reveal-circle') },
+      { label: t.nav.sundayServiceSub.pastors, href: base('/sunday-service/pastors-messages') },
+    ],
+  },
+  { label: t.nav.realCommunity, href: base('/real-community') },
+];
+---
+
+<html lang={t.locale}>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={t.meta.description} />
+    <title>{t.meta.title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;700;800&display=swap"
+    />
+  </head>
+  <body>
+    <div class="site-header">
+    <div class="utility-bar">
+        <div class="utility-inner">
+          <div class="social-icons">
+            <a href={contact.instagram.url} aria-label="Instagram">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+                <path
+                  d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2-.1-1.3-.1-1.7-.1-4.9s0-3.6.1-4.9c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.3-.1 1.7-.1 4.9-.1M12 0C8.7 0 8.3 0 7 .1 5.8.1 4.9.3 4.1.6c-.8.3-1.5.7-2.2 1.4C1.3 2.6.9 3.3.6 4.1.3 4.9.1 5.8.1 7 0 8.3 0 8.7 0 12s0 3.7.1 5c0 1.2.2 2.1.5 2.9.3.8.7 1.5 1.4 2.1.6.7 1.3 1.1 2.1 1.4.8.3 1.7.5 2.9.5 1.3.1 1.7.1 5 .1s3.7 0 5-.1c1.2 0 2.1-.2 2.9-.5.8-.3 1.5-.7 2.1-1.4.7-.6 1.1-1.3 1.4-2.1.3-.8.5-1.7.5-2.9.1-1.3.1-1.7.1-5s0-3.7-.1-5c0-1.2-.2-2.1-.5-2.9-.3-.8-.7-1.5-1.4-2.1C21.4 1.3 20.7.9 19.9.6c-.8-.3-1.7-.5-2.9-.5C15.7 0 15.3 0 12 0Zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4ZM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm7.8-10.4a1.4 1.4 0 1 1-2.9 0 1.4 1.4 0 0 1 2.9 0Z"
+                />
+              </svg>
+            </a>
+            <a href={contact.tiktok.url} aria-label="TikTok">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+                <path
+                  d="M19.6 6.7a5.6 5.6 0 0 1-3.4-3.9c-.1-.4-.1-.8-.1-1.3h-3.5v13.9a2.9 2.9 0 0 1-2.9 2.8 2.9 2.9 0 0 1 0-5.8c.3 0 .6 0 .9.1V9a6.4 6.4 0 1 0 5.5 6.3V8.6a9 9 0 0 0 5.2 1.6V6.8c-.6 0-1.2-.1-1.7-.1Z"
+                />
+              </svg>
+            </a>
+            <a href={contact.youtube.url} aria-label="YouTube">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+                <path
+                  d="M23.5 6.2a3 3 0 0 0-2.1-2.2C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31.2 31.2 0 0 0 0 12c0 2 .2 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1c.3-1.9.5-3.9.5-5.8 0-2-.2-3.9-.5-5.8ZM9.5 15.6V8.4l6.3 3.6-6.3 3.6Z"
+                />
+              </svg>
+            </a>
+          </div>
+          <nav class="lang-toggle" aria-label="Language">
+            <a href="/" class:list={[{ active: t.locale === 'en' }]} aria-current={t.locale === 'en' ? 'page' : undefined}>EN</a>
+            <span aria-hidden="true">|</span>
+            <a href="/id" class:list={[{ active: t.locale === 'id' }]} aria-current={t.locale === 'id' ? 'page' : undefined}>ID</a>
+          </nav>
+      </div>
+    </div>
+    <header class="site-nav">
+        <div class="site-nav-inner">
+          <a class="brand" href={base('/')}>
+            <Image src={logo} alt="" width="44" height="44" />
+            <span class="nav-label">Reveal Scriptura</span>
+          </a>
+          <button class="menu-toggle" aria-label="Menu" aria-expanded="false" aria-controls="primary-nav">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <path class="icon-open" d="M3 6h18M3 12h18M3 18h18" />
+              <path class="icon-close" d="M5 5l14 14M19 5L5 19" />
+            </svg>
+          </button>
+          <nav id="primary-nav" aria-label="Primary">
+            <ul class="nav-links">
+              {navLinks.map((link) => (
+                <li class={link.children ? 'has-children' : undefined}>
+                  <a class="nav-label" href={link.href}>
+                    {link.label}
+                    {link.children && <span class="caret" aria-hidden="true">▾</span>}
+                  </a>
+                  {link.children && (
+                    <ul class="sub-nav">
+                      {link.children.map((child) => (
+                        <li><a class="nav-label" href={child.href}>{child.label}</a></li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
+    </header>
+    </div>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer>
+      <div class="footer-inner">
+        <h2 class="section-heading">{t.footer.heading}</h2>
+        <div class="footer-columns">
+          <div class="footer-col">
+            <p class="body-regular">
+              <strong>{t.footer.address}</strong><br />
+              {t.footer.addressDetail}
+            </p>
+            <p class="body-regular">{t.footer.time}</p>
+            <p class="body-regular">
+              <a href={contact.phoneHref}>{contact.phoneDisplay}</a><br />
+              <a href={`mailto:${contact.email}`}>{contact.email}</a>
+            </p>
+            <p class="body-regular">
+              <a href={contact.mapsUrl}>{t.footer.findUs}</a>
+            </p>
+          </div>
+          <div class="footer-col">
+            <h3 class="section-heading">{t.footer.socialHeading}</h3>
+            <p class="body-regular">
+              Instagram: <a href={contact.instagram.url}>{contact.instagram.label}</a><br />
+              TikTok: <a href={contact.tiktok.url}>{contact.tiktok.label}</a><br />
+              YouTube: <a href={contact.youtube.url}>{contact.youtube.label}</a>
+            </p>
+          </div>
+        </div>
+        <p class="caption-meta">© {new Date().getFullYear()} {t.footer.copyright}</p>
+      </div>
+    </footer>
+
+    <script>
+      const nav = document.querySelector('.site-nav');
+      const toggle = document.querySelector('.menu-toggle');
+      if (nav && toggle) {
+        toggle.addEventListener('click', () => {
+          const open = nav.classList.toggle('open');
+          toggle.setAttribute('aria-expanded', String(open));
+        });
+      }
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --pure-white: #ffffff;
+    --utility-bar-gray: #f2f2f2;
+    --body-text: #464646;
+    --dark-navy: #393b59;
+    --ink-black: #000000;
+    --mid-gray: #898989;
+    --sky-blue-accent: #289fd8;
+    --light-border-gray: #c1c1c1;
+    --near-white-surface: #eeeeee;
+
+    --space-xs: 2px;
+    --space-sm: 5px;
+    --space-md-sm: 7px;
+    --space-base: 10px;
+    --space-md: 15px;
+    --space-lg: 20px;
+    --space-xl: 25px;
+    --space-2xl: 30px;
+    --space-3xl: 40px;
+    --space-4xl: 100px;
+
+    --radius-sm: 3px;
+    --radius-md: 8px;
+    --radius-pill: 25px;
+
+    --font-sans: 'Figtree', 'proxima-nova', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --content-width: 1180px;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 19px;
+    letter-spacing: 0.23px;
+    color: var(--body-text);
+    background: var(--pure-white);
+  }
+
+  a {
+    color: var(--sky-blue-accent);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  img {
+    max-width: 100%;
+    display: block;
+  }
+
+  .display-heading {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 44px;
+    letter-spacing: -0.72px;
+    color: var(--ink-black);
+  }
+
+  .large-subheading {
+    font-size: 32px;
+    font-weight: 300;
+    line-height: 40px;
+    letter-spacing: -0.64px;
+  }
+
+  .card-heading {
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 32px;
+    letter-spacing: 0.28px;
+    color: var(--ink-black);
+  }
+
+  .section-heading {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 24px;
+    color: var(--ink-black);
+  }
+
+  .nav-label {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 18px;
+    letter-spacing: 0.24px;
+  }
+
+  .eyebrow-label {
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 15px;
+    letter-spacing: 2.6px;
+    text-transform: uppercase;
+  }
+
+  .body-regular {
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 19px;
+    letter-spacing: 0.23px;
+  }
+
+  .body-large {
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 29px;
+  }
+
+  .caption-meta {
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 14px;
+    letter-spacing: 0.18px;
+    color: var(--mid-gray);
+  }
+</style>
+
+<style>
+  .utility-bar {
+    background: var(--utility-bar-gray);
+  }
+
+  .utility-inner {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: var(--space-md-sm) var(--space-lg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .social-icons {
+    display: flex;
+    gap: var(--space-md);
+  }
+
+  .social-icons a {
+    color: var(--body-text);
+    display: inline-flex;
+  }
+
+  .social-icons a:hover {
+    color: var(--sky-blue-accent);
+  }
+
+  .lang-toggle {
+    display: flex;
+    gap: var(--space-md-sm);
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 15px;
+    letter-spacing: 0.24px;
+  }
+
+  .lang-toggle span {
+    color: var(--light-border-gray);
+  }
+
+  .lang-toggle a {
+    color: var(--mid-gray);
+  }
+
+  .lang-toggle a.active {
+    color: var(--ink-black);
+  }
+
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .site-nav {
+    background: var(--pure-white);
+    border-bottom: 1px solid var(--near-white-surface);
+  }
+
+  .site-nav-inner {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: 0 var(--space-lg);
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    gap: var(--space-lg);
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-base);
+    color: var(--ink-black);
+    padding: var(--space-md) 0;
+  }
+
+  .brand:hover {
+    text-decoration: none;
+  }
+
+  .brand img {
+    border-radius: 50%;
+  }
+
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--ink-black);
+    padding: 0 var(--space-base);
+    cursor: pointer;
+  }
+
+  .menu-toggle .icon-close {
+    display: none;
+  }
+
+  .site-nav.open .menu-toggle .icon-open {
+    display: none;
+  }
+
+  .site-nav.open .menu-toggle .icon-close {
+    display: block;
+  }
+
+  #primary-nav {
+    display: flex;
+  }
+
+  .nav-links {
+    list-style: none;
+    display: flex;
+    align-items: stretch;
+  }
+
+  .nav-links > li {
+    display: flex;
+    position: relative;
+  }
+
+  .nav-links a {
+    color: var(--ink-black);
+    display: flex;
+    align-items: center;
+    padding: 0 var(--space-md);
+  }
+
+  .nav-links a:hover {
+    color: var(--sky-blue-accent);
+    text-decoration: none;
+  }
+
+  .caret {
+    font-size: 11px;
+    margin-left: var(--space-sm);
+  }
+
+  .sub-nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 240px;
+    list-style: none;
+    background: var(--pure-white);
+    border: 1px solid var(--near-white-surface);
+    border-top: none;
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
+    padding: var(--space-sm) 0;
+    z-index: 20;
+  }
+
+  .has-children:hover .sub-nav,
+  .has-children:focus-within .sub-nav {
+    display: block;
+  }
+
+  .sub-nav a {
+    padding: var(--space-base) var(--space-md);
+  }
+
+  footer {
+    border-top: 1px solid var(--light-border-gray);
+    margin-top: var(--space-4xl);
+  }
+
+  .footer-inner {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: var(--space-3xl) var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .footer-columns {
+    display: flex;
+    gap: var(--space-3xl);
+    flex-wrap: wrap;
+  }
+
+  .footer-col {
+    flex: 1 1 280px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .footer-col .body-regular {
+    line-height: 22px;
+  }
+
+  @media (max-width: 900px) {
+    .site-nav-inner {
+      flex-wrap: wrap;
+    }
+
+    .menu-toggle {
+      display: flex;
+      align-items: center;
+    }
+
+    #primary-nav {
+      display: none;
+      flex-basis: 100%;
+    }
+
+    .site-nav.open #primary-nav {
+      display: block;
+    }
+
+    .nav-links {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .nav-links > li {
+      flex-direction: column;
+    }
+
+    .nav-links a {
+      width: 100%;
+      padding: var(--space-md) 0;
+      border-top: 1px solid var(--near-white-surface);
+    }
+
+    .caret {
+      display: none;
+    }
+
+    .sub-nav {
+      display: block;
+      position: static;
+      min-width: 0;
+      border: none;
+      border-radius: 0;
+      padding: 0;
+    }
+
+    .sub-nav a {
+      padding-left: var(--space-lg);
+      font-size: 15px;
+    }
+  }
+</style>

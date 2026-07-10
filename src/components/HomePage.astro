@@ -1,0 +1,240 @@
+---
+import { Image } from 'astro:assets';
+import realCommunityPhoto from '../assets/real-community.jpg';
+import sundayServicePhoto from '../assets/sunday-service.jpg';
+import { localePath, type Translations } from '../i18n';
+
+interface Props {
+  t: Translations;
+}
+
+const { t } = Astro.props;
+const base = (path: string) => localePath(t.locale, path);
+
+const cards = [
+  {
+    ...t.cards.sundayService,
+    href: base('/sunday-service'),
+    image: sundayServicePhoto,
+  },
+  {
+    ...t.cards.realCommunity,
+    href: base('/real-community'),
+    image: realCommunityPhoto,
+  },
+];
+---
+
+<section class="hero">
+  <h1>{t.hero.title}</h1>
+  <p class="large-subheading">{t.hero.tagline}</p>
+</section>
+
+<section class="welcome">
+  <p class="large-subheading">{t.hero.subtitle}</p>
+  <blockquote>
+    <p class="body-large">{t.hero.verse}</p>
+    <cite class="eyebrow-label">{t.hero.verseRef}</cite>
+  </blockquote>
+</section>
+
+<section class="mission">
+  <h2 class="display-heading">{t.mission.heading}</h2>
+  <div class="pillars">
+    {t.mission.pillars.map((pillar) => (
+      <div class="pillar">
+        <h3 class="section-heading">{pillar.tag}</h3>
+        <p class="body-regular">{pillar.text}</p>
+      </div>
+    ))}
+  </div>
+</section>
+
+<section class="vision">
+  <div class="vision-inner">
+    <h2 class="display-heading">{t.vision.heading}</h2>
+    <p class="large-subheading">{t.vision.text}</p>
+  </div>
+</section>
+
+<section class="feature-cards">
+  {cards.map((card) => (
+    <article class="card">
+      <a href={card.href}>
+        <Image src={card.image} alt={card.imageAlt} width="960" widths={[480, 960]} sizes="(max-width: 900px) 100vw, 570px" />
+      </a>
+      <div class="card-body">
+        <h2 class="card-heading">{card.heading}</h2>
+        <p class="body-regular">{card.text}</p>
+        <a class="card-link nav-label" href={card.href}>{card.heading} →</a>
+      </div>
+    </article>
+  ))}
+</section>
+
+<style>
+  section {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: var(--space-3xl) var(--space-lg);
+  }
+
+  .hero {
+    max-width: none;
+    background: var(--dark-navy);
+    color: var(--pure-white);
+    text-align: center;
+    padding: var(--space-3xl) var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-lg);
+    /* Full-screen hero: viewport minus the utility bar (~30px) and sticky nav (~74px). */
+    min-height: calc(100vh - 104px);
+    min-height: calc(100svh - 104px);
+  }
+
+  .hero h1 {
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.1;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  .welcome {
+    text-align: center;
+    padding-top: var(--space-4xl);
+    padding-bottom: var(--space-4xl);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2xl);
+  }
+
+  .welcome .large-subheading {
+    max-width: 720px;
+  }
+
+  .welcome blockquote {
+    max-width: 680px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .welcome cite {
+    font-style: normal;
+    color: var(--mid-gray);
+  }
+
+  .mission {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xl);
+    padding-top: var(--space-4xl);
+    padding-bottom: var(--space-4xl);
+    border-top: 1px solid var(--near-white-surface);
+  }
+
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-3xl);
+  }
+
+  .pillar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-base);
+  }
+
+  .pillar .body-regular {
+    line-height: 22px;
+  }
+
+  .vision {
+    max-width: none;
+    background: var(--utility-bar-gray);
+    padding: var(--space-3xl) var(--space-lg);
+  }
+
+  .vision-inner {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .vision .large-subheading {
+    max-width: 880px;
+  }
+
+  .feature-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3xl);
+    padding-top: var(--space-4xl);
+  }
+
+  .card {
+    border: 1px solid var(--near-white-surface);
+    border-radius: var(--radius-pill);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+
+  .card-body {
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .card-body .body-regular {
+    line-height: 22px;
+  }
+
+  .card-link {
+    margin-top: auto;
+  }
+
+  @media (max-width: 900px) {
+    .hero h1 {
+      font-size: 32px;
+    }
+
+    .welcome,
+    .mission,
+    .feature-cards {
+      padding-top: var(--space-3xl);
+    }
+
+    .welcome,
+    .mission {
+      padding-bottom: var(--space-3xl);
+    }
+
+    .pillars,
+    .feature-cards {
+      grid-template-columns: 1fr;
+    }
+
+    .hero .large-subheading,
+    .welcome .large-subheading,
+    .vision .large-subheading {
+      font-size: 26px;
+      line-height: 34px;
+    }
+  }
+</style>
