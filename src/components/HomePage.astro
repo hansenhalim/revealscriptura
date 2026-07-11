@@ -1,5 +1,6 @@
 ---
-import { Image } from 'astro:assets';
+import { getImage } from 'astro:assets';
+import heroPosterFrame from '../assets/hero-poster.jpg';
 import realCommunityPhoto from '../assets/real-community.jpg';
 import sundayServicePhoto from '../assets/sunday-service.jpg';
 import { localePath, type Translations } from '../i18n';
@@ -11,21 +12,58 @@ interface Props {
 const { t } = Astro.props;
 const base = (path: string) => localePath(t.locale, path);
 
-const cards = [
-  {
-    ...t.cards.sundayService,
-    href: base('/sunday-service'),
-    image: sundayServicePhoto,
-  },
-  {
-    ...t.cards.realCommunity,
-    href: base('/real-community'),
-    image: realCommunityPhoto,
-  },
-];
+// Banner photos render as CSS backgrounds so background-attachment: fixed works.
+const [sundayServiceBg, realCommunityBg] = await Promise.all([
+  getImage({ src: sundayServicePhoto, width: 1920, format: 'webp' }),
+  getImage({ src: realCommunityPhoto, width: 1920, format: 'webp' }),
+]);
+
+// The poster is frame 0 of the hero video, so playback takes over invisibly.
+const heroPoster = await getImage({ src: heroPosterFrame, width: 1280, format: 'webp' });
+
+// Every image dropped into src/assets/gallery/ joins the marquee automatically.
+const galleryModules = import.meta.glob<{ default: ImageMetadata }>(
+  '../assets/gallery/*.{jpg,jpeg,png,webp}',
+  { eager: true },
+);
+const galleryPhotos = await Promise.all(
+  Object.keys(galleryModules)
+    .sort()
+    .map((path) => getImage({ src: galleryModules[path].default, width: 900, format: 'webp' })),
+);
+// The track holds three copies of the set and shifts by exactly one copy per
+// loop; the animation duration scales with the photo count so the drift speed
+// stays constant as more photos are added.
+const galleryDuration = `${galleryPhotos.length * 10}s`;
 ---
 
 <section class="hero">
+  <video
+    id="hero-video"
+    autoplay
+    muted
+    loop
+    playsinline
+    poster={heroPoster.src}
+    preload="auto"
+    aria-hidden="true"
+    disablepictureinpicture
+    disableRemotePlayback
+  >
+    <source src="/videos/hero.webm" type="video/webm" />
+    <source src="/videos/hero.mp4" type="video/mp4" />
+  </video>
+  <script is:inline>
+    (() => {
+      const video = document.getElementById('hero-video');
+      const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+      if (reduced.matches) video.removeAttribute('autoplay');
+      new IntersectionObserver(([entry]) => {
+        if (reduced.matches || !entry.isIntersecting) video.pause();
+        else video.play().catch(() => {});
+      }).observe(video);
+    })();
+  </script>
   <h1>{t.hero.title}</h1>
   <p class="large-subheading">{t.hero.tagline}</p>
 </section>
@@ -36,6 +74,13 @@ const cards = [
     <p class="body-large">{t.hero.verse}</p>
     <cite class="eyebrow-label">{t.hero.verseRef}</cite>
   </blockquote>
+</section>
+
+<section class="vision">
+  <div class="vision-inner">
+    <h2 class="display-heading">{t.vision.heading}</h2>
+    <p class="large-subheading">{t.vision.text}</p>
+  </div>
 </section>
 
 <section class="mission">
@@ -50,26 +95,33 @@ const cards = [
   </div>
 </section>
 
-<section class="vision">
-  <div class="vision-inner">
-    <h2 class="display-heading">{t.vision.heading}</h2>
-    <p class="large-subheading">{t.vision.text}</p>
+<section class="banner" style={`background-image: url('${sundayServiceBg.src}')`}>
+  <div class="banner-content">
+    <h2 class="card-heading">{t.cards.sundayService.heading}</h2>
+    <p class="large-subheading">{t.cards.sundayService.text}</p>
+    <a class="banner-cta eyebrow-label" href={base('/sunday-service')}>{t.cards.sundayService.heading}</a>
   </div>
 </section>
 
-<section class="feature-cards">
-  {cards.map((card) => (
-    <article class="card">
-      <a href={card.href}>
-        <Image src={card.image} alt={card.imageAlt} width="960" widths={[480, 960]} sizes="(max-width: 900px) 100vw, 570px" />
-      </a>
-      <div class="card-body">
-        <h2 class="card-heading">{card.heading}</h2>
-        <p class="body-regular">{card.text}</p>
-        <a class="card-link nav-label" href={card.href}>{card.heading} →</a>
-      </div>
-    </article>
-  ))}
+<section class="about">
+  <p class="large-subheading">{t.about.intro}</p>
+  <p class="body-large">{t.about.text}</p>
+</section>
+
+<section class="banner" style={`background-image: url('${realCommunityBg.src}')`}>
+  <div class="banner-content">
+    <h2 class="card-heading">{t.cards.realCommunity.heading}</h2>
+    <p class="large-subheading">{t.cards.realCommunity.text}</p>
+    <a class="banner-cta eyebrow-label" href={base('/real-community')}>{t.cards.realCommunity.heading}</a>
+  </div>
+</section>
+
+<section class="gallery" aria-hidden="true">
+  <div class="gallery-track" style={`animation-duration: ${galleryDuration}`}>
+    {[...galleryPhotos, ...galleryPhotos, ...galleryPhotos].map((photo) => (
+      <img src={photo.src} alt="" width={photo.attributes.width} height={photo.attributes.height} loading="lazy" decoding="async" />
+    ))}
+  </div>
 </section>
 
 <style>
@@ -80,7 +132,10 @@ const cards = [
   }
 
   .hero {
+    position: relative;
     max-width: none;
+    /* Navy stays as the base layer so text sits on brand color until the
+       poster/video paints. */
     background: var(--dark-navy);
     color: var(--pure-white);
     text-align: center;
@@ -93,6 +148,30 @@ const cards = [
     /* Full-screen hero: viewport minus the utility bar (~30px) and sticky nav (~74px). */
     min-height: calc(100vh - 104px);
     min-height: calc(100svh - 104px);
+  }
+
+  .hero video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* 55% keeps the white headline readable over the loop's brightest shots
+     (the opening balloons); the mostly-dark footage still reads clearly.
+     ::after paints above the video without needing z-index. */
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: color-mix(in srgb, var(--dark-navy) 55%, transparent);
+  }
+
+  .hero h1,
+  .hero .large-subheading {
+    position: relative;
+    z-index: 1;
   }
 
   .hero h1 {
@@ -135,7 +214,6 @@ const cards = [
     gap: var(--space-2xl);
     padding-top: var(--space-4xl);
     padding-bottom: var(--space-4xl);
-    border-top: 1px solid var(--near-white-surface);
   }
 
   .pillars {
@@ -172,41 +250,116 @@ const cards = [
     max-width: 880px;
   }
 
-  .feature-cards {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-3xl);
-    padding-top: var(--space-4xl);
+  .banner {
+    position: relative;
+    max-width: none;
+    height: 520px;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-3xl) var(--space-lg);
   }
 
-  .card {
-    border: 1px solid var(--near-white-surface);
+  .banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: color-mix(in srgb, var(--dark-navy) 75%, transparent);
+  }
+
+  .banner-content {
+    position: relative;
+    max-width: 760px;
+    color: var(--pure-white);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-lg);
+  }
+
+  .banner-content .card-heading {
+    color: var(--pure-white);
+  }
+
+  .banner-cta {
+    margin-top: var(--space-base);
+    padding: var(--space-md) var(--space-2xl);
+    border: 1px solid var(--pure-white);
     border-radius: var(--radius-pill);
+    color: var(--pure-white);
+  }
+
+  .banner-cta:hover {
+    background: var(--pure-white);
+    color: var(--dark-navy);
+    text-decoration: none;
+  }
+
+  .gallery {
+    max-width: none;
+    padding: var(--space-4xl) 0;
     overflow: hidden;
+  }
+
+  .gallery-track {
+    display: flex;
+    width: max-content;
+    animation: gallery-drift linear infinite;
+  }
+
+  /* Spacing lives on the tiles (not flex gap) so one copy of the photo set is
+     exactly a third of the track and the -100%/3 shift loops seamlessly. */
+  .gallery-track img {
+    height: 300px;
+    width: auto;
+    margin-right: var(--space-base);
+    flex-shrink: 0;
+  }
+
+  @keyframes gallery-drift {
+    to {
+      transform: translateX(calc(-100% / 3));
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gallery {
+      overflow-x: auto;
+    }
+
+    .gallery-track {
+      animation: none;
+    }
+  }
+
+  .about {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: var(--space-4xl) var(--space-lg);
+    text-align: center;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    gap: var(--space-2xl);
   }
 
-  .card img {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
+  .about .large-subheading {
+    max-width: 880px;
   }
 
-  .card-body {
-    padding: var(--space-xl);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-md);
+  .about .body-large {
+    max-width: 720px;
   }
 
-  .card-body .body-regular {
-    line-height: 22px;
-  }
-
-  .card-link {
-    margin-top: auto;
+  /* Parallax only where it renders reliably: wide pointer-driven screens.
+     Touch browsers (iOS Safari especially) mishandle background-attachment: fixed. */
+  @media (min-width: 901px) and (hover: hover) {
+    .banner {
+      background-attachment: fixed;
+    }
   }
 
   @media (max-width: 900px) {
@@ -215,24 +368,39 @@ const cards = [
     }
 
     .welcome,
-    .mission,
-    .feature-cards {
-      padding-top: var(--space-3xl);
-    }
-
-    .welcome,
     .mission {
+      padding-top: var(--space-3xl);
       padding-bottom: var(--space-3xl);
     }
 
-    .pillars,
-    .feature-cards {
+    .pillars {
       grid-template-columns: 1fr;
+    }
+
+    .banner {
+      height: auto;
+      min-height: 420px;
+    }
+
+    .gallery {
+      padding-top: var(--space-3xl);
+      padding-bottom: var(--space-3xl);
+    }
+
+    .gallery-track img {
+      height: 200px;
+    }
+
+    .about {
+      padding-top: var(--space-3xl);
+      padding-bottom: var(--space-3xl);
     }
 
     .hero .large-subheading,
     .welcome .large-subheading,
-    .vision .large-subheading {
+    .vision .large-subheading,
+    .banner .large-subheading,
+    .about .large-subheading {
       font-size: 26px;
       line-height: 34px;
     }

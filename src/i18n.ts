@@ -34,6 +34,10 @@ export interface Translations {
     sundayService: { heading: string; text: string; imageAlt: string };
     realCommunity: { heading: string; text: string; imageAlt: string };
   };
+  about: {
+    intro: string;
+    text: string;
+  };
   footer: {
     heading: string;
     address: string;
@@ -106,6 +110,11 @@ export const en: Translations = {
       imageAlt:
         "Members of the REAL community gathered together in an online meeting",
     },
+  },
+  about: {
+    intro:
+      "REVEAL SCRIPTURA is a church that oversees REAL Community and has been serving since 2022",
+    text: "We strive to be a home where God’s people grow in faith, deepen their understanding of His Word, and find joy in fellowship. Rooted in the Great Commission and Greatest Commandment, we are committed to impacting this generation through a loving, Christ-centered community.",
   },
   footer: {
     heading: "Connect with us",
@@ -183,6 +192,11 @@ export const id: Translations = {
       imageAlt:
         "Anggota komunitas REAL berkumpul bersama dalam pertemuan online",
     },
+  },
+  about: {
+    intro:
+      "REVEAL SCRIPTURA adalah gereja yang menaungi REAL Community dan telah melayani sejak tahun 2022.",
+    text: "Kami berusaha menjadi rumah bagi umat Tuhan untuk bertumbuh dalam iman, memperdalam pemahaman akan Firman-Nya, dan menemukan sukacita dalam persekutuan. Berakar pada Amanat Agung dan Perintah Terutama, kami berkomitmen untuk memberi dampak bagi generasi ini melalui komunitas yang penuh kasih dan berpusat pada Kristus.",
   },
   footer: {
     heading: "Terhubung dengan kami",
