@@ -203,8 +203,11 @@ const galleryDuration = `${galleryPhotos.length * 10}s`;
     gap: var(--space-2xl);
   }
 
-  .welcome .large-subheading {
-    max-width: 720px;
+  /* Sized to hold one line at desktop content width. */
+  .welcome > .large-subheading {
+    max-width: none;
+    font-size: 24px;
+    line-height: 32px;
   }
 
   .welcome blockquote {
@@ -260,8 +263,11 @@ const galleryDuration = `${galleryPhotos.length * 10}s`;
     text-align: center;
   }
 
+  /* Sized to hold two lines at desktop content width. */
   .vision .large-subheading {
-    max-width: 880px;
+    max-width: none;
+    font-size: 24px;
+    line-height: 32px;
   }
 
   .banner {
@@ -360,8 +366,12 @@ const galleryDuration = `${galleryPhotos.length * 10}s`;
     gap: var(--space-2xl);
   }
 
+  /* Sized to hold one line at desktop content width; 22px (not 24) because
+     the all-caps words run wider. */
   .about .large-subheading {
-    max-width: 880px;
+    max-width: none;
+    font-size: 22px;
+    line-height: 30px;
   }
 
   .about .body-large {

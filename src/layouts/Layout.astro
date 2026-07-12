@@ -183,24 +183,20 @@ const navLinks: NavLink[] = [
 
     <footer>
       <div class="footer-inner">
-        <h2 class="section-heading">{t.footer.heading}</h2>
         <div class="footer-columns">
           <div class="footer-col">
+            <h2 class="section-heading">{t.footer.heading}</h2>
             <p class="body-regular">
               <strong>{t.footer.address}</strong><br />
-              {t.footer.addressDetail}
+              <span class="address-detail">{t.footer.addressDetail}</span>
             </p>
             <p class="body-regular">{t.footer.time}</p>
-            <p class="body-regular">
-              <a href={contact.phoneHref}>{contact.phoneDisplay}</a><br />
-              <a href={`mailto:${contact.email}`}>{contact.email}</a>
-            </p>
             <p class="body-regular">
               <a href={contact.mapsUrl}>{t.footer.findUs}</a>
             </p>
           </div>
           <div class="footer-col">
-            <h3 class="section-heading">{t.footer.socialHeading}</h3>
+            <h2 class="section-heading">{t.footer.socialHeading}</h2>
             <p class="body-regular">
               Instagram: <a href={contact.instagram.url}
                 >{contact.instagram.label}</a
@@ -208,6 +204,10 @@ const navLinks: NavLink[] = [
               TikTok: <a href={contact.tiktok.url}>{contact.tiktok.label}</a><br
               />
               YouTube: <a href={contact.youtube.url}>{contact.youtube.label}</a>
+            </p>
+            <p class="body-regular">
+              <a href={contact.phoneHref}>{contact.phoneDisplay}</a><br />
+              <a href={`mailto:${contact.email}`}>{contact.email}</a>
             </p>
           </div>
         </div>
@@ -538,7 +538,7 @@ const navLinks: NavLink[] = [
 
   .footer-columns {
     display: flex;
-    gap: var(--space-3xl);
+    gap: var(--space-4xl);
     flex-wrap: wrap;
   }
 
@@ -551,6 +551,10 @@ const navLinks: NavLink[] = [
 
   .footer-col .body-regular {
     line-height: 20px;
+  }
+
+  .address-detail {
+    white-space: pre-line;
   }
 
   @media (max-width: 900px) {

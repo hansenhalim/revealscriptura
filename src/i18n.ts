@@ -105,7 +105,7 @@ export const en: Translations = {
   cards: {
     sundayService: {
       heading: "Reveal Sunday Service",
-      text: "We warmly invite you to join our Sunday service\nevery Sunday at 14:00.\nBellezza Permata Hijau, lt 3,\nor online via Zoom.",
+      text: "We warmly invite you to join our Sunday service\nEvery Sunday at 14:00\nBellezza Permata Hijau, lt 3\nor online via Zoom",
       imageAlt:
         "The Reveal Scriptura congregation gathered on stage after a Sunday service",
     },
@@ -130,7 +130,7 @@ export const en: Translations = {
     heading: "Connect with us",
     address: "Bellezza Permata Hijau, lt 3",
     addressDetail:
-      "Jl. Arteri Permata Hijau No.34, RT.4/RW.2, Grogol Utara, Kec. Kby. Lama, Kota Jakarta Selatan",
+      "Jl. Arteri Permata Hijau No.34, RT.4/RW.2, Grogol Utara\nKec. Kby. Lama, Kota Jakarta Selatan",
     time: "Online or on-site at 14:00",
     findUs: "Find us here",
     socialHeading: "Social media",
@@ -192,7 +192,7 @@ export const id: Translations = {
   cards: {
     sundayService: {
       heading: "Reveal Sunday Service",
-      text: "Kami mengundang Anda mengikuti ibadah Minggu kami\nsetiap hari Minggu pukul 14.00\ndi Bellezza Permata Hijau, lt 3,\natau online melalui Zoom.",
+      text: "Kami mengundang Anda mengikuti ibadah Minggu kami\nSetiap hari Minggu pukul 14.00\ndi Bellezza Permata Hijau, lt 3\natau online melalui Zoom",
       imageAlt:
         "Jemaat Reveal Scriptura berkumpul di panggung setelah ibadah Minggu",
     },
@@ -217,7 +217,7 @@ export const id: Translations = {
     heading: "Terhubung dengan kami",
     address: "Bellezza Permata Hijau, lt 3",
     addressDetail:
-      "Jl. Arteri Permata Hijau No.34, RT.4/RW.2, Grogol Utara, Kec. Kby. Lama, Kota Jakarta Selatan",
+      "Jl. Arteri Permata Hijau No.34, RT.4/RW.2, Grogol Utara\nKec. Kby. Lama, Kota Jakarta Selatan",
     time: "Online atau on-site pukul 14.00",
     findUs: "Temukan kami di sini",
     socialHeading: "Media sosial",
@@ -244,7 +244,7 @@ export const contact = {
   phoneDisplay: "+62 811-1779-7591",
   phoneHref: "tel:+6281117797591",
   email: "revealscriptura@gmail.com",
-  mapsUrl: "https://maps.app.goo.gl/e9qqfTMGK1pYvjW3A",
+  mapsUrl: "https://maps.app.goo.gl/NfsTcbrEK7nB8kEL9",
   instagram: {
     label: "@reveal.scr",
     url: "https://www.instagram.com/reveal.scr/",
@@ -255,6 +255,6 @@ export const contact = {
   },
   youtube: {
     label: "Reveal Scriptura",
-    url: "https://www.youtube.com/results?search_query=Reveal+Scriptura",
+    url: "https://www.youtube.com/@RevealScriptura",
   },
 };
