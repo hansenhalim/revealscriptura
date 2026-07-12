@@ -3,7 +3,7 @@ import { getImage } from 'astro:assets';
 import heroPosterFrame from '../assets/hero-poster.jpg';
 import realCommunityPhoto from '../assets/real-community.jpg';
 import sundayServicePhoto from '../assets/sunday-service.jpg';
-import { localePath, type Translations } from '../i18n';
+import { giving, localePath, type Translations } from '../i18n';
 
 interface Props {
   t: Translations;
@@ -116,6 +116,17 @@ const galleryDuration = `${galleryPhotos.length * 10}s`;
   </div>
 </section>
 
+<section class="giving">
+  <div class="giving-inner">
+    <h2 class="display-heading">{t.giving.heading}</h2>
+    <p class="body-large">{t.giving.text}</p>
+    <p class="giving-account">
+      {giving.account}<br />{giving.accountNumber}
+    </p>
+    <p class="giving-note">{t.giving.note}</p>
+  </div>
+</section>
+
 <section class="gallery" aria-hidden="true">
   <div class="gallery-track" style={`animation-duration: ${galleryDuration}`}>
     {[...galleryPhotos, ...galleryPhotos, ...galleryPhotos].map((photo) => (
@@ -136,8 +147,8 @@ const galleryDuration = `${galleryPhotos.length * 10}s`;
     max-width: none;
     /* Navy stays as the base layer so text sits on brand color until the
        poster/video paints. */
-    background: var(--dark-navy);
-    color: var(--pure-white);
+    background: var(--brand-navy);
+    color: var(--heading);
     text-align: center;
     padding: var(--space-3xl) var(--space-lg);
     display: flex;
@@ -165,7 +176,7 @@ const galleryDuration = `${galleryPhotos.length * 10}s`;
     content: '';
     position: absolute;
     inset: 0;
-    background: color-mix(in srgb, var(--dark-navy) 55%, transparent);
+    background: color-mix(in srgb, var(--brand-navy) 55%, transparent);
   }
 
   .hero h1,
@@ -175,7 +186,7 @@ const galleryDuration = `${galleryPhotos.length * 10}s`;
   }
 
   .hero h1 {
-    font-size: 40px;
+    font-size: 34px;
     font-weight: 700;
     line-height: 1.1;
     text-transform: uppercase;
@@ -205,7 +216,7 @@ const galleryDuration = `${galleryPhotos.length * 10}s`;
 
   .welcome cite {
     font-style: normal;
-    color: var(--mid-gray);
+    color: var(--text-muted);
   }
 
   .mission {
@@ -214,6 +225,7 @@ const galleryDuration = `${galleryPhotos.length * 10}s`;
     gap: var(--space-2xl);
     padding-top: var(--space-4xl);
     padding-bottom: var(--space-4xl);
+    text-align: center;
   }
 
   .pillars {
@@ -229,12 +241,12 @@ const galleryDuration = `${galleryPhotos.length * 10}s`;
   }
 
   .pillar .body-regular {
-    line-height: 22px;
+    line-height: 20px;
   }
 
   .vision {
     max-width: none;
-    background: var(--utility-bar-gray);
+    background: var(--surface);
     padding: var(--space-3xl) var(--space-lg);
   }
 
@@ -243,7 +255,9 @@ const galleryDuration = `${galleryPhotos.length * 10}s`;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: var(--space-lg);
+    text-align: center;
   }
 
   .vision .large-subheading {
@@ -266,13 +280,17 @@ const galleryDuration = `${galleryPhotos.length * 10}s`;
     content: '';
     position: absolute;
     inset: 0;
-    background: color-mix(in srgb, var(--dark-navy) 75%, transparent);
+    background: color-mix(in srgb, var(--brand-navy) 75%, transparent);
+  }
+
+  .banner-content .large-subheading {
+    white-space: pre-line;
   }
 
   .banner-content {
     position: relative;
     max-width: 760px;
-    color: var(--pure-white);
+    color: var(--heading);
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -280,21 +298,17 @@ const galleryDuration = `${galleryPhotos.length * 10}s`;
     gap: var(--space-lg);
   }
 
-  .banner-content .card-heading {
-    color: var(--pure-white);
-  }
-
   .banner-cta {
     margin-top: var(--space-base);
     padding: var(--space-md) var(--space-2xl);
-    border: 1px solid var(--pure-white);
+    border: 1px solid var(--heading);
     border-radius: var(--radius-pill);
-    color: var(--pure-white);
+    color: var(--heading);
   }
 
   .banner-cta:hover {
-    background: var(--pure-white);
-    color: var(--dark-navy);
+    background: var(--heading);
+    color: var(--brand-navy);
     text-decoration: none;
   }
 
@@ -354,6 +368,37 @@ const galleryDuration = `${galleryPhotos.length * 10}s`;
     max-width: 720px;
   }
 
+  .giving {
+    max-width: none;
+    background: var(--surface);
+    padding: var(--space-4xl) var(--space-lg);
+  }
+
+  .giving-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2xl);
+  }
+
+  .giving-account {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 28px;
+    color: var(--heading);
+  }
+
+  .giving-note {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18px;
+    letter-spacing: 0.18px;
+    color: var(--text);
+  }
+
   /* Parallax only where it renders reliably: wide pointer-driven screens.
      Touch browsers (iOS Safari especially) mishandle background-attachment: fixed. */
   @media (min-width: 901px) and (hover: hover) {
@@ -364,7 +409,7 @@ const galleryDuration = `${galleryPhotos.length * 10}s`;
 
   @media (max-width: 900px) {
     .hero h1 {
-      font-size: 32px;
+      font-size: 28px;
     }
 
     .welcome,
@@ -391,7 +436,8 @@ const galleryDuration = `${galleryPhotos.length * 10}s`;
       height: 200px;
     }
 
-    .about {
+    .about,
+    .giving {
       padding-top: var(--space-3xl);
       padding-bottom: var(--space-3xl);
     }
@@ -401,8 +447,8 @@ const galleryDuration = `${galleryPhotos.length * 10}s`;
     .vision .large-subheading,
     .banner .large-subheading,
     .about .large-subheading {
-      font-size: 26px;
-      line-height: 34px;
+      font-size: 22px;
+      line-height: 30px;
     }
   }
 </style>

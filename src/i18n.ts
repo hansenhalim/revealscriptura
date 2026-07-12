@@ -38,6 +38,11 @@ export interface Translations {
     intro: string;
     text: string;
   };
+  giving: {
+    heading: string;
+    text: string;
+    note: string;
+  };
   footer: {
     heading: string;
     address: string;
@@ -100,7 +105,7 @@ export const en: Translations = {
   cards: {
     sundayService: {
       heading: "Reveal Sunday Service",
-      text: "We warmly invite you to join our Sunday service every Sunday at 14:00. Bellezza Permata Hijau, lt 3, or online via Zoom.",
+      text: "We warmly invite you to join our Sunday service\nevery Sunday at 14:00.\nBellezza Permata Hijau, lt 3,\nor online via Zoom.",
       imageAlt:
         "The Reveal Scriptura congregation gathered on stage after a Sunday service",
     },
@@ -115,6 +120,11 @@ export const en: Translations = {
     intro:
       "REVEAL SCRIPTURA is a church that oversees REAL Community and has been serving since 2022",
     text: "We strive to be a home where God’s people grow in faith, deepen their understanding of His Word, and find joy in fellowship. Rooted in the Great Commission and Greatest Commandment, we are committed to impacting this generation through a loving, Christ-centered community.",
+  },
+  giving: {
+    heading: "Giving and Offering",
+    text: "Giving is an act of faith and gratitude. Join us in being a blessing to our church, supporting God's mission, and making a difference in the lives of others.",
+    note: "*Add the number 7 at the end of the amount, e.g., Rp 10,007.",
   },
   footer: {
     heading: "Connect with us",
@@ -134,7 +144,7 @@ export const en: Translations = {
 export const id: Translations = {
   locale: "id",
   meta: {
-    title: "Reveal Scriptura — Selamat Datang",
+    title: "Reveal Scriptura — Welcome Home",
     description:
       "Reveal Scriptura adalah rumah bagi umat Allah di Jakarta. Ikuti ibadah Minggu kami di Bellezza Permata Hijau atau online, dan bertumbuh bersama di dalam iman.",
   },
@@ -151,7 +161,7 @@ export const id: Translations = {
   },
   hero: {
     title: "Reveal Scriptura",
-    tagline: "Selamat Datang",
+    tagline: "Welcome Home",
     subtitle:
       "Kami mengundang Anda bergabung dalam perjalanan iman dan bertumbuh bersama.",
     verse:
@@ -182,7 +192,7 @@ export const id: Translations = {
   cards: {
     sundayService: {
       heading: "Reveal Sunday Service",
-      text: "Kami mengundang Anda mengikuti ibadah Minggu kami setiap hari Minggu pukul 14.00 di Bellezza Permata Hijau, lt 3, atau online melalui Zoom.",
+      text: "Kami mengundang Anda mengikuti ibadah Minggu kami\nsetiap hari Minggu pukul 14.00\ndi Bellezza Permata Hijau, lt 3,\natau online melalui Zoom.",
       imageAlt:
         "Jemaat Reveal Scriptura berkumpul di panggung setelah ibadah Minggu",
     },
@@ -197,6 +207,11 @@ export const id: Translations = {
     intro:
       "REVEAL SCRIPTURA adalah gereja yang menaungi REAL Community dan telah melayani sejak tahun 2022.",
     text: "Kami berusaha menjadi rumah bagi umat Tuhan untuk bertumbuh dalam iman, memperdalam pemahaman akan Firman-Nya, dan menemukan sukacita dalam persekutuan. Berakar pada Amanat Agung dan Perintah Terutama, kami berkomitmen untuk memberi dampak bagi generasi ini melalui komunitas yang penuh kasih dan berpusat pada Kristus.",
+  },
+  giving: {
+    heading: "Persembahan",
+    text: "Memberi adalah wujud iman dan rasa syukur. Mari bersama menjadi berkat bagi gereja kita, mendukung misi Allah, dan membawa perubahan dalam kehidupan sesama.",
+    note: "*Tambahkan angka 7 di akhir nominal, contoh: Rp 10.007.",
   },
   footer: {
     heading: "Terhubung dengan kami",
@@ -218,6 +233,12 @@ export function localePath(locale: Translations["locale"], path = "/"): string {
   const suffix = path === "/" ? (prefix ? "" : "/") : path;
   return `${prefix}${suffix}` || "/";
 }
+
+// Bank details are locale-independent, like contact info.
+export const giving = {
+  account: "BCA a/n Samuel Evins",
+  accountNumber: "5680908101",
+};
 
 export const contact = {
   phoneDisplay: "+62 811-1779-7591",

@@ -47,6 +47,7 @@ const navLinks: NavLink[] = [
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#101118" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={t.meta.description} />
     <title>{t.meta.title}</title>
@@ -231,15 +232,16 @@ const navLinks: NavLink[] = [
 
 <style is:global>
   :root {
-    --pure-white: #ffffff;
-    --utility-bar-gray: #f2f2f2;
-    --body-text: #464646;
-    --dark-navy: #393b59;
-    --ink-black: #000000;
-    --mid-gray: #898989;
-    --sky-blue-accent: #289fd8;
-    --light-border-gray: #c1c1c1;
-    --near-white-surface: #eeeeee;
+    color-scheme: dark;
+
+    --bg: #101118;
+    --surface: #191b26;
+    --border: #2b2d3d;
+    --heading: #f2f3f7;
+    --text: #b9bcc8;
+    --text-muted: #7f8296;
+    --accent: #289fd8;
+    --brand-navy: #393b59;
 
     --space-xs: 2px;
     --space-sm: 5px;
@@ -269,16 +271,16 @@ const navLinks: NavLink[] = [
 
   body {
     font-family: var(--font-sans);
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 300;
-    line-height: 19px;
+    line-height: 18px;
     letter-spacing: 0.23px;
-    color: var(--body-text);
-    background: var(--pure-white);
+    color: var(--text);
+    background: var(--bg);
   }
 
   a {
-    color: var(--sky-blue-accent);
+    color: var(--accent);
     text-decoration: none;
   }
 
@@ -292,75 +294,75 @@ const navLinks: NavLink[] = [
   }
 
   .display-heading {
-    font-size: 36px;
+    font-size: 30px;
     font-weight: 700;
-    line-height: 44px;
-    letter-spacing: -0.72px;
-    color: var(--ink-black);
+    line-height: 38px;
+    letter-spacing: -0.6px;
+    color: var(--heading);
   }
 
   .large-subheading {
-    font-size: 32px;
+    font-size: 26px;
     font-weight: 300;
-    line-height: 40px;
-    letter-spacing: -0.64px;
+    line-height: 34px;
+    letter-spacing: -0.52px;
   }
 
   .card-heading {
-    font-size: 28px;
+    font-size: 24px;
     font-weight: 800;
-    line-height: 32px;
-    letter-spacing: 0.28px;
-    color: var(--ink-black);
+    line-height: 28px;
+    letter-spacing: 0.24px;
+    color: var(--heading);
   }
 
   .section-heading {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 700;
-    line-height: 24px;
-    color: var(--ink-black);
+    line-height: 22px;
+    color: var(--heading);
   }
 
   .nav-label {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 700;
     line-height: 18px;
     letter-spacing: 0.24px;
   }
 
   .eyebrow-label {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 700;
-    line-height: 15px;
-    letter-spacing: 2.6px;
+    line-height: 14px;
+    letter-spacing: 2.4px;
     text-transform: uppercase;
   }
 
   .body-regular {
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 300;
-    line-height: 19px;
+    line-height: 18px;
     letter-spacing: 0.23px;
   }
 
   .body-large {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 300;
-    line-height: 29px;
+    line-height: 26px;
   }
 
   .caption-meta {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 400;
-    line-height: 14px;
+    line-height: 13px;
     letter-spacing: 0.18px;
-    color: var(--mid-gray);
+    color: var(--text-muted);
   }
 </style>
 
 <style>
   .utility-bar {
-    background: var(--utility-bar-gray);
+    background: var(--surface);
   }
 
   .utility-inner {
@@ -378,33 +380,33 @@ const navLinks: NavLink[] = [
   }
 
   .social-icons a {
-    color: var(--body-text);
+    color: var(--text);
     display: inline-flex;
   }
 
   .social-icons a:hover {
-    color: var(--sky-blue-accent);
+    color: var(--accent);
   }
 
   .lang-toggle {
     display: flex;
     gap: var(--space-md-sm);
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 700;
-    line-height: 15px;
+    line-height: 14px;
     letter-spacing: 0.24px;
   }
 
   .lang-toggle span {
-    color: var(--light-border-gray);
+    color: var(--border);
   }
 
   .lang-toggle a {
-    color: var(--mid-gray);
+    color: var(--text-muted);
   }
 
   .lang-toggle a.active {
-    color: var(--ink-black);
+    color: var(--heading);
   }
 
   .site-header {
@@ -414,8 +416,8 @@ const navLinks: NavLink[] = [
   }
 
   .site-nav {
-    background: var(--pure-white);
-    border-bottom: 1px solid var(--near-white-surface);
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
   }
 
   .site-nav-inner {
@@ -432,7 +434,7 @@ const navLinks: NavLink[] = [
     display: flex;
     align-items: center;
     gap: var(--space-base);
-    color: var(--ink-black);
+    color: var(--heading);
     padding: var(--space-md) 0;
   }
 
@@ -448,7 +450,7 @@ const navLinks: NavLink[] = [
     display: none;
     background: none;
     border: none;
-    color: var(--ink-black);
+    color: var(--heading);
     padding: 0 var(--space-base);
     cursor: pointer;
   }
@@ -481,14 +483,14 @@ const navLinks: NavLink[] = [
   }
 
   .nav-links a {
-    color: var(--ink-black);
+    color: var(--heading);
     display: flex;
     align-items: center;
     padding: 0 var(--space-md);
   }
 
   .nav-links a:hover {
-    color: var(--sky-blue-accent);
+    color: var(--accent);
     text-decoration: none;
   }
 
@@ -504,8 +506,8 @@ const navLinks: NavLink[] = [
     left: 0;
     min-width: 240px;
     list-style: none;
-    background: var(--pure-white);
-    border: 1px solid var(--near-white-surface);
+    background: var(--surface);
+    border: 1px solid var(--border);
     border-top: none;
     border-radius: 0 0 var(--radius-md) var(--radius-md);
     padding: var(--space-sm) 0;
@@ -522,7 +524,7 @@ const navLinks: NavLink[] = [
   }
 
   footer {
-    border-top: 1px solid var(--light-border-gray);
+    border-top: 1px solid var(--border);
   }
 
   .footer-inner {
@@ -548,7 +550,7 @@ const navLinks: NavLink[] = [
   }
 
   .footer-col .body-regular {
-    line-height: 22px;
+    line-height: 20px;
   }
 
   @media (max-width: 900px) {
@@ -582,7 +584,7 @@ const navLinks: NavLink[] = [
     .nav-links a {
       width: 100%;
       padding: var(--space-md) 0;
-      border-top: 1px solid var(--near-white-surface);
+      border-top: 1px solid var(--border);
     }
 
     .caret {
@@ -600,7 +602,7 @@ const navLinks: NavLink[] = [
 
     .sub-nav a {
       padding-left: var(--space-lg);
-      font-size: 15px;
+      font-size: 14px;
     }
   }
 </style>
