@@ -38,6 +38,27 @@ export interface Translations {
     intro: string;
     text: string;
   };
+  aboutPage: {
+    meta: {
+      title: string;
+      description: string;
+    };
+    heroTitle: string;
+    heroImageAlt: string;
+    team: {
+      heading: string;
+      pastorName: string;
+      pastorBio: string;
+      pastorImageAlt: string;
+      groups: {
+        praiseWorship: { name: string; imageAlt: string };
+        discipleship: { name: string; imageAlt: string };
+        event: { name: string; imageAlt: string };
+        production: { name: string; imageAlt: string };
+        pastoral: { name: string; imageAlt: string };
+      };
+    };
+  };
   giving: {
     heading: string;
     text: string;
@@ -120,6 +141,45 @@ export const en: Translations = {
     intro:
       "REVEAL SCRIPTURA is a church that oversees REAL Community and has been serving since 2022",
     text: "We strive to be a home where God’s people grow in faith, deepen their understanding of His Word, and find joy in fellowship. Rooted in the Great Commission and Greatest Commandment, we are committed to impacting this generation through a loving, Christ-centered community.",
+  },
+  aboutPage: {
+    meta: {
+      title: "About Us — Reveal Scriptura",
+      description:
+        "Learn who Reveal Scriptura is: a church overseeing REAL Community, serving since 2022, and the team behind our Sunday services in Jakarta.",
+    },
+    heroTitle: "About Reveal Scriptura",
+    heroImageAlt:
+      "The Reveal Scriptura congregation gathered together in front of the church logo",
+    team: {
+      heading: "Meet The Team",
+      pastorName: "Pdp. Samuel Evins, M.Th.",
+      pastorBio:
+        "Pdp. Samuel Evins has a Bachelor’s degree in Economics from UKRIDA (Universitas Kristen Krida Wacana) in Jakarta and a Master’s degree in Theology from STT Baptis Jakarta.",
+      pastorImageAlt: "Portrait of Pdp. Samuel Evins",
+      groups: {
+        praiseWorship: {
+          name: "Praise and Worship Team",
+          imageAlt: "The praise and worship team standing together",
+        },
+        discipleship: {
+          name: "Discipleship Team",
+          imageAlt: "The discipleship team standing together",
+        },
+        event: {
+          name: "Event Team",
+          imageAlt: "The event team standing together",
+        },
+        production: {
+          name: "Production Team",
+          imageAlt: "The production team standing together",
+        },
+        pastoral: {
+          name: "Pastoral Team",
+          imageAlt: "The pastoral team standing together",
+        },
+      },
+    },
   },
   giving: {
     heading: "Giving and Offering",
@@ -207,6 +267,47 @@ export const id: Translations = {
     intro:
       "REVEAL SCRIPTURA adalah gereja yang menaungi REAL Community dan telah melayani sejak tahun 2022.",
     text: "Kami berusaha menjadi rumah bagi umat Tuhan untuk bertumbuh dalam iman, memperdalam pemahaman akan Firman-Nya, dan menemukan sukacita dalam persekutuan. Berakar pada Amanat Agung dan Perintah Terutama, kami berkomitmen untuk memberi dampak bagi generasi ini melalui komunitas yang penuh kasih dan berpusat pada Kristus.",
+  },
+  aboutPage: {
+    meta: {
+      title: "Tentang Kami — Reveal Scriptura",
+      description:
+        "Kenali Reveal Scriptura: gereja yang menaungi REAL Community, melayani sejak 2022, dan tim di balik ibadah Minggu kami di Jakarta.",
+    },
+    heroTitle: "Tentang Reveal Scriptura",
+    heroImageAlt:
+      "Jemaat Reveal Scriptura berkumpul bersama di depan logo gereja",
+    team: {
+      heading: "Meet The Team",
+      pastorName: "Pdp. Samuel Evins, M.Th.",
+      pastorBio:
+        "Pdp. Samuel Evins memiliki gelar Sarjana Ekonomi dari UKRIDA (Universitas Kristen Krida Wacana) di Jakarta dan gelar Magister Teologi dari STT Baptis Jakarta.",
+      pastorImageAlt: "Foto Pdp. Samuel Evins",
+      // Team names stay in English to match how the ministries brand
+      // themselves on the original site.
+      groups: {
+        praiseWorship: {
+          name: "Praise and Worship Team",
+          imageAlt: "Tim praise and worship berdiri bersama",
+        },
+        discipleship: {
+          name: "Discipleship Team",
+          imageAlt: "Tim discipleship berdiri bersama",
+        },
+        event: {
+          name: "Event Team",
+          imageAlt: "Tim event berdiri bersama",
+        },
+        production: {
+          name: "Production Team",
+          imageAlt: "Tim production berdiri bersama",
+        },
+        pastoral: {
+          name: "Pastoral Team",
+          imageAlt: "Tim pastoral berdiri bersama",
+        },
+      },
+    },
   },
   giving: {
     heading: "Persembahan",

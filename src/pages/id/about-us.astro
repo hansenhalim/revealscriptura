@@ -1,0 +1,13 @@
+---
+import AboutPage from '../../components/AboutPage.astro';
+import { id } from '../../i18n';
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout
+  t={id}
+  title={id.aboutPage.meta.title}
+  description={id.aboutPage.meta.description}
+>
+  <AboutPage t={id} />
+</Layout>

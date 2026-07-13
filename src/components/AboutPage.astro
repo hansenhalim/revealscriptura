@@ -1,0 +1,293 @@
+---
+import { Image, getImage } from 'astro:assets';
+import logo from '../assets/logo.png';
+import pastorPhoto from '../assets/about/pastor-samuel-evins.jpg';
+import teamDiscipleship from '../assets/about/team-discipleship.jpg';
+import teamEvent from '../assets/about/team-event.jpg';
+import teamPastoral from '../assets/about/team-pastoral.jpg';
+import teamPraiseWorship from '../assets/about/team-praise-worship.jpg';
+import teamProduction from '../assets/about/team-production.jpg';
+import heroPhoto from '../assets/gallery/dscf5415.jpg';
+import type { Translations } from '../i18n';
+
+interface Props {
+  t: Translations;
+}
+
+const { t } = Astro.props;
+
+// Hero photo renders as a CSS background so the navy overlay and centered
+// title follow the same pattern as the homepage banners.
+const heroBg = await getImage({ src: heroPhoto, width: 1920, format: 'webp' });
+
+const teams = [
+  { photo: teamPraiseWorship, ...t.aboutPage.team.groups.praiseWorship },
+  { photo: teamDiscipleship, ...t.aboutPage.team.groups.discipleship },
+  { photo: teamEvent, ...t.aboutPage.team.groups.event },
+  { photo: teamProduction, ...t.aboutPage.team.groups.production },
+  { photo: teamPastoral, ...t.aboutPage.team.groups.pastoral },
+];
+---
+
+<section
+  class="page-hero"
+  role="img"
+  aria-label={t.aboutPage.heroImageAlt}
+  style={`background-image: url('${heroBg.src}')`}
+>
+  <Image class="hero-logo" src={logo} alt="" width="160" height="160" />
+  <h1>{t.aboutPage.heroTitle}</h1>
+</section>
+
+<section class="intro">
+  <p class="large-subheading">{t.about.intro}</p>
+  <p class="body-large">{t.about.text}</p>
+</section>
+
+<section class="vision">
+  <div class="vision-inner">
+    <h2 class="display-heading">{t.vision.heading}</h2>
+    <p class="large-subheading">{t.vision.text}</p>
+  </div>
+</section>
+
+<section class="mission">
+  <h2 class="display-heading">{t.mission.heading}</h2>
+  <div class="pillars">
+    {t.mission.pillars.map((pillar) => (
+      <div class="pillar">
+        <h3 class="section-heading">{pillar.tag}</h3>
+        <p class="body-regular">{pillar.text}</p>
+      </div>
+    ))}
+  </div>
+</section>
+
+<section class="team">
+  <h2 class="display-heading">{t.aboutPage.team.heading}</h2>
+  <div class="pastor">
+    <Image src={pastorPhoto} alt={t.aboutPage.team.pastorImageAlt} width={760} />
+    <div class="pastor-text">
+      <h3 class="card-heading">{t.aboutPage.team.pastorName}</h3>
+      <p class="body-large">{t.aboutPage.team.pastorBio}</p>
+    </div>
+  </div>
+  <div class="team-grid">
+    {teams.map((team) => (
+      <figure>
+        <Image src={team.photo} alt={team.imageAlt} width={760} />
+        <figcaption class="section-heading">{team.name}</figcaption>
+      </figure>
+    ))}
+  </div>
+</section>
+
+<style>
+  section {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: var(--space-3xl) var(--space-lg);
+  }
+
+  .page-hero {
+    position: relative;
+    max-width: none;
+    /* Full-screen hero: viewport minus the utility bar (~30px) and sticky nav (~74px). */
+    min-height: calc(100vh - 104px);
+    min-height: calc(100svh - 104px);
+    background-color: var(--brand-navy);
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-lg);
+    padding: var(--space-3xl) var(--space-lg);
+  }
+
+  .hero-logo {
+    position: relative;
+    border-radius: 50%;
+  }
+
+  /* Parallax only where it renders reliably: wide pointer-driven screens.
+     Touch browsers (iOS Safari especially) mishandle background-attachment: fixed. */
+  @media (min-width: 901px) and (hover: hover) {
+    .page-hero {
+      background-attachment: fixed;
+    }
+  }
+
+  .page-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: color-mix(in srgb, var(--brand-navy) 65%, transparent);
+  }
+
+  .page-hero h1 {
+    position: relative;
+    color: var(--heading);
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.1;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-align: center;
+  }
+
+  .intro {
+    padding-top: var(--space-4xl);
+    padding-bottom: var(--space-4xl);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2xl);
+  }
+
+  /* Sized to hold one line at desktop content width; 22px (not 24) because
+     the all-caps words run wider. */
+  .intro .large-subheading {
+    max-width: none;
+    font-size: 22px;
+    line-height: 30px;
+  }
+
+  .intro .body-large {
+    max-width: 720px;
+  }
+
+  .mission {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xl);
+    padding-top: var(--space-4xl);
+    text-align: center;
+  }
+
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-3xl);
+  }
+
+  .pillar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-base);
+  }
+
+  .pillar .body-regular {
+    line-height: 20px;
+  }
+
+  .vision {
+    max-width: none;
+    background: var(--surface);
+    padding: var(--space-3xl) var(--space-lg);
+  }
+
+  .vision-inner {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-lg);
+    text-align: center;
+  }
+
+  /* Sized to hold two lines at desktop content width. */
+  .vision .large-subheading {
+    max-width: none;
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  .team {
+    padding-top: var(--space-4xl);
+    padding-bottom: var(--space-4xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3xl);
+    text-align: center;
+  }
+
+  .pastor {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3xl);
+    align-items: center;
+    text-align: left;
+  }
+
+  .pastor img,
+  .team-grid img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-md);
+  }
+
+  .pastor-text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3xl) var(--space-2xl);
+  }
+
+  /* The odd photo out spans both columns so the grid closes cleanly. */
+  .team-grid figure:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    max-width: 760px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .team-grid figure {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  @media (max-width: 900px) {
+    .page-hero h1 {
+      font-size: 28px;
+    }
+
+    .intro,
+    .team {
+      padding-top: var(--space-3xl);
+      padding-bottom: var(--space-3xl);
+    }
+
+    .mission {
+      padding-top: var(--space-3xl);
+    }
+
+    .pillars {
+      grid-template-columns: 1fr;
+    }
+
+    .pastor {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+
+    .team-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .intro .large-subheading,
+    .vision .large-subheading {
+      font-size: 22px;
+      line-height: 30px;
+    }
+  }
+</style>

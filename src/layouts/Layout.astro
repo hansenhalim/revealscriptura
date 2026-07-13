@@ -5,10 +5,25 @@ import { contact, localePath, type Translations } from "../i18n";
 
 interface Props {
   t: Translations;
+  title?: string;
+  description?: string;
 }
 
-const { t } = Astro.props;
+const {
+  t,
+  title = t.meta.title,
+  description = t.meta.description,
+} = Astro.props;
 const base = (path: string) => localePath(t.locale, path);
+
+// The language toggle swaps the locale prefix but keeps the current page.
+const currentPath = Astro.url.pathname.replace(/\/+$/, "") || "/";
+const pathWithoutLocale =
+  currentPath === "/id" ? "/" : currentPath.replace(/^\/id(?=\/)/, "");
+const langHref = {
+  en: localePath("en", pathWithoutLocale),
+  id: localePath("id", pathWithoutLocale),
+};
 
 interface NavLink {
   label: string;
@@ -49,8 +64,8 @@ const navLinks: NavLink[] = [
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#101118" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="description" content={t.meta.description} />
-    <title>{t.meta.title}</title>
+    <meta name="description" content={description} />
+    <title>{title}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -105,13 +120,13 @@ const navLinks: NavLink[] = [
           </div>
           <nav class="lang-toggle" aria-label="Language">
             <a
-              href="/"
+              href={langHref.en}
               class:list={[{ active: t.locale === "en" }]}
               aria-current={t.locale === "en" ? "page" : undefined}>EN</a
             >
             <span aria-hidden="true">|</span>
             <a
-              href="/id"
+              href={langHref.id}
               class:list={[{ active: t.locale === "id" }]}
               aria-current={t.locale === "id" ? "page" : undefined}>ID</a
             >
