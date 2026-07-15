@@ -1,0 +1,13 @@
+---
+import SundayServicePage from '../../components/SundayServicePage.astro';
+import { id } from '../../i18n';
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout
+  t={id}
+  title={id.sundayServicePage.meta.title}
+  description={id.sundayServicePage.meta.description}
+>
+  <SundayServicePage t={id} />
+</Layout>

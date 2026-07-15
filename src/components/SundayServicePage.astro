@@ -1,0 +1,344 @@
+---
+import { Image, getImage } from 'astro:assets';
+import worshipCross from '../assets/gallery/dscf5286.jpg';
+import sermon from '../assets/gallery/dscf5382.jpg';
+import praise from '../assets/sunday-service/praise.jpg';
+import heroPhoto from '../assets/sunday-service/preaching.jpg';
+import worshipTeam from '../assets/sunday-service/worship-team.jpg';
+import { contact, localePath, sundayService, type Translations } from '../i18n';
+import GivingSection from './GivingSection.astro';
+
+interface Props {
+  t: Translations;
+}
+
+const { t } = Astro.props;
+const base = (path: string) => localePath(t.locale, path);
+
+// Hero photo renders as a CSS background so the navy overlay and centered
+// title follow the same pattern as the other pages.
+const heroBg = await getImage({ src: heroPhoto, width: 1920, format: 'webp' });
+
+const mapSrc = `${sundayService.mapEmbedBase}&hl=${t.locale}`;
+const videoSrc = `https://www.youtube-nocookie.com/embed/${sundayService.youtubeVideoId}`;
+
+const teasers = [
+  {
+    name: t.nav.sundayServiceSub.notes,
+    href: base('/sunday-service/notes'),
+    ...t.sundayServicePage.teasers.notes,
+  },
+  {
+    name: t.nav.sundayServiceSub.circle,
+    href: base('/sunday-service/reveal-circle'),
+    ...t.sundayServicePage.teasers.circle,
+  },
+];
+
+const galleryPhotos = [
+  { photo: worshipTeam, alt: t.sundayServicePage.gallery.worshipTeamAlt },
+  { photo: praise, alt: t.sundayServicePage.gallery.praiseAlt },
+  { photo: worshipCross, alt: t.sundayServicePage.gallery.crossAlt },
+  { photo: sermon, alt: t.sundayServicePage.gallery.sermonAlt },
+];
+---
+
+<section
+  class="page-hero"
+  role="img"
+  aria-label={t.sundayServicePage.heroImageAlt}
+  style={`background-image: url('${heroBg.src}')`}
+>
+  <h1>{t.sundayServicePage.heroTitle}</h1>
+  <p class="large-subheading">{t.sundayServicePage.heroSubtitle}</p>
+</section>
+
+<section class="join">
+  <h2 class="display-heading">{t.sundayServicePage.join.heading}</h2>
+  <p class="body-large">{t.sundayServicePage.join.text}</p>
+  <div class="join-ctas">
+    <a class="pill-cta eyebrow-label" href={sundayService.zoomUrl}>
+      {t.sundayServicePage.join.zoomCta}
+    </a>
+    <a class="pill-cta eyebrow-label" href={contact.whatsappUrl}>
+      {t.sundayServicePage.join.whatsappCta}
+    </a>
+  </div>
+</section>
+
+<section class="find-us">
+  <div class="find-us-inner">
+    <h2 class="display-heading">{t.sundayServicePage.findUs.heading}</h2>
+    <div class="find-us-grid">
+      <iframe
+        src={mapSrc}
+        title={t.sundayServicePage.findUs.mapTitle}
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <div class="find-us-details">
+        <p class="body-large">
+          <strong>{t.footer.address}</strong><br />
+          <span class="address-detail">{t.footer.addressDetail}</span>
+        </p>
+        <p class="body-large">{t.footer.time}</p>
+        <p class="body-large">
+          <a href={contact.phoneHref}>{contact.phoneDisplay}</a><br />
+          <a href={contact.whatsappUrl}>WhatsApp</a><br />
+          <a href={`mailto:${contact.email}`}>{contact.email}</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="teasers">
+  {teasers.map((teaser) => (
+    <article class="teaser">
+      <h2 class="card-heading">{teaser.name}</h2>
+      <p class="body-large">{teaser.text}</p>
+      <a class="nav-label" href={teaser.href}>{teaser.cta}</a>
+    </article>
+  ))}
+</section>
+
+<section class="watch">
+  <h2 class="display-heading">{t.sundayServicePage.watch.heading}</h2>
+  <iframe
+    class="video-frame"
+    src={videoSrc}
+    title={t.sundayServicePage.watch.videoTitle}
+    loading="lazy"
+    allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerpolicy="strict-origin-when-cross-origin"
+    allowfullscreen></iframe>
+</section>
+
+<section class="photo-grid">
+  {galleryPhotos.map(({ photo, alt }) => <Image src={photo} alt={alt} width={760} />)}
+</section>
+
+<GivingSection t={t} />
+
+<style>
+  section {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: var(--space-3xl) var(--space-lg);
+  }
+
+  .page-hero {
+    position: relative;
+    max-width: none;
+    /* Full-screen hero: viewport minus the utility bar (~30px) and sticky nav (~74px). */
+    min-height: calc(100vh - 104px);
+    min-height: calc(100svh - 104px);
+    background-color: var(--brand-navy);
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-lg);
+    padding: var(--space-3xl) var(--space-lg);
+  }
+
+  /* Parallax only where it renders reliably: wide pointer-driven screens.
+     Touch browsers (iOS Safari especially) mishandle background-attachment: fixed. */
+  @media (min-width: 901px) and (hover: hover) {
+    .page-hero {
+      background-attachment: fixed;
+    }
+  }
+
+  .page-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: color-mix(in srgb, var(--brand-navy) 65%, transparent);
+  }
+
+  .page-hero h1 {
+    position: relative;
+    color: var(--heading);
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.1;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-align: center;
+  }
+
+  .page-hero .large-subheading {
+    position: relative;
+    color: var(--heading);
+    text-align: center;
+    white-space: pre-line;
+  }
+
+  .join {
+    padding-top: var(--space-4xl);
+    padding-bottom: var(--space-4xl);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2xl);
+  }
+
+  .join .body-large {
+    max-width: 720px;
+    white-space: pre-line;
+  }
+
+  .join-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-lg);
+  }
+
+  .pill-cta {
+    padding: var(--space-md) var(--space-2xl);
+    border: 1px solid var(--heading);
+    border-radius: var(--radius-pill);
+    color: var(--heading);
+  }
+
+  .pill-cta:hover {
+    background: var(--heading);
+    color: var(--brand-navy);
+    text-decoration: none;
+  }
+
+  .find-us {
+    max-width: none;
+    background: var(--surface);
+    padding: var(--space-3xl) var(--space-lg);
+  }
+
+  .find-us-inner {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xl);
+    text-align: center;
+  }
+
+  .find-us-grid {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: var(--space-3xl);
+    align-items: center;
+    text-align: left;
+  }
+
+  .find-us-grid iframe {
+    width: 100%;
+    height: 400px;
+    border: 0;
+    border-radius: var(--radius-md);
+  }
+
+  .find-us-details {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .address-detail {
+    white-space: pre-line;
+  }
+
+  .teasers {
+    padding-top: var(--space-4xl);
+    padding-bottom: var(--space-4xl);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3xl);
+  }
+
+  .teaser {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: var(--space-3xl);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-md);
+  }
+
+  .teaser .body-large {
+    flex: 1;
+  }
+
+  .watch {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2xl);
+  }
+
+  .video-frame {
+    width: 100%;
+    max-width: 960px;
+    aspect-ratio: 16 / 9;
+    border: 0;
+    border-radius: var(--radius-md);
+  }
+
+  /* Row aspect ratios match: the two old-site photos are ~4:3, the two
+     gallery shots are 3:2, so each row closes level. */
+  .photo-grid {
+    padding-top: var(--space-4xl);
+    padding-bottom: var(--space-4xl);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .photo-grid img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-md);
+  }
+
+  @media (max-width: 900px) {
+    .page-hero h1 {
+      font-size: 28px;
+    }
+
+    .page-hero .large-subheading {
+      font-size: 22px;
+      line-height: 30px;
+    }
+
+    .join,
+    .teasers,
+    .photo-grid {
+      padding-top: var(--space-3xl);
+      padding-bottom: var(--space-3xl);
+    }
+
+    .find-us-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-2xl);
+    }
+
+    .find-us-grid iframe {
+      height: 300px;
+    }
+
+    .teasers,
+    .photo-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .teaser {
+      padding: var(--space-2xl);
+    }
+  }
+</style>

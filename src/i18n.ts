@@ -59,6 +59,39 @@ export interface Translations {
       };
     };
   };
+  sundayServicePage: {
+    meta: {
+      title: string;
+      description: string;
+    };
+    heroTitle: string;
+    heroSubtitle: string;
+    heroImageAlt: string;
+    join: {
+      heading: string;
+      text: string;
+      zoomCta: string;
+      whatsappCta: string;
+    };
+    findUs: {
+      heading: string;
+      mapTitle: string;
+    };
+    teasers: {
+      notes: { text: string; cta: string };
+      circle: { text: string; cta: string };
+    };
+    watch: {
+      heading: string;
+      videoTitle: string;
+    };
+    gallery: {
+      worshipTeamAlt: string;
+      praiseAlt: string;
+      crossAlt: string;
+      sermonAlt: string;
+    };
+  };
   giving: {
     heading: string;
     text: string;
@@ -179,6 +212,48 @@ export const en: Translations = {
           imageAlt: "The pastoral team standing together",
         },
       },
+    },
+  },
+  sundayServicePage: {
+    meta: {
+      title: "Reveal Sunday Service — Reveal Scriptura",
+      description:
+        "Join Reveal Sunday Service every Sunday at 14:00 WIB — on-site at Bellezza Permata Hijau, Jakarta, or online via Zoom.",
+    },
+    heroTitle: "Reveal Sunday Service",
+    heroSubtitle: "Every Sunday at 14:00 WIB\nOnline or on-site",
+    heroImageAlt:
+      "The pastor preaching at the pulpit beside an illuminated cross during a Sunday service",
+    join: {
+      heading: "Join us this Sunday",
+      text: "We gather every Sunday at 14:00 WIB\nOn-site at Bellezza Permata Hijau\nor online via Zoom meeting.",
+      zoomCta: "Join via Zoom",
+      whatsappCta: "Chat on WhatsApp",
+    },
+    findUs: {
+      heading: "Find us here",
+      mapTitle:
+        "Map showing the location of Reveal Scriptura at Bellezza Permata Hijau",
+    },
+    teasers: {
+      notes: {
+        text: "Notes containing the full content and conclusion of the Sunday sermon.",
+        cta: "Read the notes",
+      },
+      circle: {
+        text: "A close-knit community where members grow together, study God’s Word, pray, and live as true disciples of Christ. Discipleship is the calling of every believer, fulfilling Christ’s Great Commission.",
+        cta: "Learn more",
+      },
+    },
+    watch: {
+      heading: "Watch our Sunday service",
+      videoTitle: "Reveal Sunday Service recording on YouTube",
+    },
+    gallery: {
+      worshipTeamAlt: "The worship team leading songs during a Sunday service",
+      praiseAlt: "A member of the congregation worshipping during the service",
+      crossAlt: "Hands raised in worship before the illuminated cross",
+      sermonAlt: "The pastor preaching during a Sunday sermon",
     },
   },
   giving: {
@@ -309,6 +384,47 @@ export const id: Translations = {
       },
     },
   },
+  sundayServicePage: {
+    meta: {
+      title: "Reveal Sunday Service — Reveal Scriptura",
+      description:
+        "Ikuti Reveal Sunday Service setiap hari Minggu pukul 14.00 WIB — on-site di Bellezza Permata Hijau, Jakarta, atau online melalui Zoom.",
+    },
+    heroTitle: "Reveal Sunday Service",
+    heroSubtitle: "Setiap hari Minggu pukul 14.00 WIB\nOnline atau on-site",
+    heroImageAlt:
+      "Gembala berkhotbah di mimbar di samping salib bercahaya dalam ibadah Minggu",
+    join: {
+      heading: "Bergabunglah Minggu ini",
+      text: "Kami beribadah setiap hari Minggu pukul 14.00 WIB\nOn-site di Bellezza Permata Hijau\natau online melalui Zoom meeting.",
+      zoomCta: "Gabung via Zoom",
+      whatsappCta: "Chat via WhatsApp",
+    },
+    findUs: {
+      heading: "Temukan kami di sini",
+      mapTitle: "Peta lokasi Reveal Scriptura di Bellezza Permata Hijau",
+    },
+    teasers: {
+      notes: {
+        text: "Catatan berisi seluruh isi dan kesimpulan khotbah Minggu.",
+        cta: "Baca catatan",
+      },
+      circle: {
+        text: "Komunitas yang erat di mana anggota bertumbuh bersama, mempelajari Firman Tuhan, berdoa, dan hidup sebagai murid Kristus yang sejati. Pemuridan adalah panggilan setiap orang percaya untuk menggenapi Amanat Agung Kristus.",
+        cta: "Pelajari lebih lanjut",
+      },
+    },
+    watch: {
+      heading: "Tonton ibadah Minggu kami",
+      videoTitle: "Rekaman Reveal Sunday Service di YouTube",
+    },
+    gallery: {
+      worshipTeamAlt: "Tim pujian memimpin lagu dalam ibadah Minggu",
+      praiseAlt: "Jemaat menyembah dalam ibadah",
+      crossAlt: "Tangan terangkat dalam penyembahan di depan salib bercahaya",
+      sermonAlt: "Gembala berkhotbah dalam ibadah Minggu",
+    },
+  },
   giving: {
     heading: "Persembahan",
     text: "Memberi adalah wujud iman dan rasa syukur. Mari bersama menjadi berkat bagi gereja kita, mendukung misi Allah, dan membawa perubahan dalam kehidupan sesama.",
@@ -344,6 +460,7 @@ export const giving = {
 export const contact = {
   phoneDisplay: "+62 811-1779-7591",
   phoneHref: "tel:+6281117797591",
+  whatsappUrl: "https://wa.me/6281117797591",
   email: "revealscriptura@gmail.com",
   mapsUrl: "https://maps.app.goo.gl/NfsTcbrEK7nB8kEL9",
   instagram: {
@@ -358,4 +475,16 @@ export const contact = {
     label: "Reveal Scriptura",
     url: "https://www.youtube.com/@RevealScriptura",
   },
+};
+
+// Sunday Service links are locale-independent, like contact info.
+export const sundayService = {
+  // Recurring Zoom room; the URL (password included) was already public on the old site.
+  zoomUrl:
+    "https://us02web.zoom.us/j/6404207777?pwd=U0JwSDRaVHd6UFBrYlY2SW9MVDIrZz09",
+  // Latest service recording — updated by hand: swap this ID after upload.
+  youtubeVideoId: "7MwXh3VvGJs",
+  // Keyless classic embed pinned at Bellezza Permata Hijau; `hl` is appended per locale.
+  mapEmbedBase:
+    "https://maps-api-ssl.google.com/maps?ll=-6.221863,106.783754&q=-6.221975,106.783489&z=18&output=embed",
 };

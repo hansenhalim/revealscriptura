@@ -1,0 +1,59 @@
+---
+import { giving, type Translations } from '../i18n';
+
+interface Props {
+  t: Translations;
+}
+
+const { t } = Astro.props;
+---
+
+<section class="giving">
+  <div class="giving-inner">
+    <h2 class="display-heading">{t.giving.heading}</h2>
+    <p class="body-large">{t.giving.text}</p>
+    <p class="giving-account">
+      {giving.account}<br />{giving.accountNumber}
+    </p>
+    <p class="giving-note">{t.giving.note}</p>
+  </div>
+</section>
+
+<style>
+  .giving {
+    background: var(--surface);
+    padding: var(--space-4xl) var(--space-lg);
+  }
+
+  .giving-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2xl);
+  }
+
+  .giving-account {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 28px;
+    color: var(--heading);
+  }
+
+  .giving-note {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18px;
+    letter-spacing: 0.18px;
+    color: var(--text);
+  }
+
+  @media (max-width: 900px) {
+    .giving {
+      padding-top: var(--space-3xl);
+      padding-bottom: var(--space-3xl);
+    }
+  }
+</style>

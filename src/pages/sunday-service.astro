@@ -1,0 +1,13 @@
+---
+import SundayServicePage from '../components/SundayServicePage.astro';
+import { en } from '../i18n';
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  t={en}
+  title={en.sundayServicePage.meta.title}
+  description={en.sundayServicePage.meta.description}
+>
+  <SundayServicePage t={en} />
+</Layout>
