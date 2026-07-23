@@ -59,6 +59,30 @@ export interface Translations {
       };
     };
   };
+  joinUsPage: {
+    meta: {
+      title: string;
+      description: string;
+    };
+    heroTitle: string;
+    heroImageAlt: string;
+    connect: {
+      heading: string;
+      text: string;
+    };
+    channels: {
+      whatsapp: string;
+      instagram: string;
+      tiktok: string;
+    };
+    slideshow: {
+      tiktokAlt: string;
+      instagramAlt: string;
+    };
+    watch: {
+      heading: string;
+    };
+  };
   sundayServicePage: {
     meta: {
       title: string;
@@ -91,6 +115,31 @@ export interface Translations {
       crossAlt: string;
       sermonAlt: string;
     };
+  };
+  sundayNotesPage: {
+    meta: {
+      title: string;
+      description: string;
+    };
+    heroTitle: string;
+    heroImageAlt: string;
+  };
+  realCommunityPage: {
+    meta: {
+      title: string;
+      description: string;
+    };
+    heroTitle: string;
+    heroImageAlt: string;
+    intro: string;
+    connection: { heading: string; text: string; imageAlt: string };
+    topical: { heading: string; text: string; imageAlt: string };
+    testimonies: {
+      vinnyAlt: string;
+      cherlyAlt: string;
+      welmanAlt: string;
+    };
+    more: { sportAlt: string; charityAlt: string };
   };
   giving: {
     heading: string;
@@ -214,6 +263,34 @@ export const en: Translations = {
       },
     },
   },
+  joinUsPage: {
+    meta: {
+      title: "Join Us — Reveal Scriptura",
+      description:
+        "Connect with Reveal Scriptura on WhatsApp, Instagram, and TikTok — ask questions, join our online Sunday service, and stay updated.",
+    },
+    heroTitle: "Join Us",
+    heroImageAlt:
+      "The congregation worshipping with hands raised during a Sunday service",
+    connect: {
+      heading: "Connect with us",
+      text: "We’re here to support you. If you have any questions or need guidance, feel free to reach out — and follow us to stay updated with Sunday notes, announcements, and more.",
+    },
+    channels: {
+      whatsapp:
+        "Chat with us to ask questions or join our online Reveal Sunday Service.",
+      instagram:
+        "Follow us for announcements, event updates, and everyday church life.",
+      tiktok: "Watch Sunday highlights and short moments from our community.",
+    },
+    slideshow: {
+      tiktokAlt: "Screenshot of the Reveal Scriptura TikTok profile",
+      instagramAlt: "Screenshot of the Reveal Scriptura Instagram profile",
+    },
+    watch: {
+      heading: "Watch our videos",
+    },
+  },
   sundayServicePage: {
     meta: {
       title: "Reveal Sunday Service — Reveal Scriptura",
@@ -256,6 +333,52 @@ export const en: Translations = {
       sermonAlt: "The pastor preaching during a Sunday sermon",
     },
   },
+  sundayNotesPage: {
+    meta: {
+      title: "Reveal Sunday Notes — Reveal Scriptura",
+      description:
+        "Read Reveal Sunday Notes — the full content and conclusion of each Sunday sermon at Reveal Scriptura.",
+    },
+    heroTitle: "Reveal Sunday Notes",
+    heroImageAlt:
+      "A member of the congregation writing sermon notes in a notebook",
+  },
+  realCommunityPage: {
+    meta: {
+      title: "REAL Community — Reveal Scriptura",
+      description:
+        "REAL is an online-based community and movement under Reveal, dedicated to nurturing a gospel-centered life through Topical and Bible Talk sessions.",
+    },
+    heroTitle: "REAL Community",
+    heroImageAlt:
+      "Members of the REAL community gathered together in an online meeting",
+    intro:
+      "REAL is an online-based community and movement under Reveal, dedicated to nurturing a gospel-centered life. Since 2021, we’ve been growing and connecting for over three years. Our gatherings include two key sessions: Topical Session and Bible Talk Session.",
+    connection: {
+      heading: "Real Connection",
+      text: "A community in Jakarta that gathers for worship, fellowship, and spiritual growth, with a heart to share the Gospel and impact the city.",
+      imageAlt:
+        "REAL Connection members gathered together after a meeting in Jakarta",
+    },
+    topical: {
+      heading: "Topical Session",
+      text: "A speaker shares the Word, followed by breakout rooms for discussion and sharing.",
+      imageAlt: "Topical Session poster — held via Zoom meeting",
+    },
+    testimonies: {
+      vinnyAlt:
+        "Testimony from Vinny (25) in Bogor about learning God’s Word more deeply through the online community",
+      cherlyAlt:
+        "Testimony from Cherly (25) in Kupang about growing in faith every day through the community",
+      welmanAlt:
+        "Testimony from Welman (25) in Jakarta about REAL Community being like a supportive family",
+    },
+    more: {
+      sportAlt: "Members of the REAL community playing sports together",
+      charityAlt:
+        "Members of the REAL community sharing with others at a charity event",
+    },
+  },
   giving: {
     heading: "Giving and Offering",
     text: "Giving is an act of faith and gratitude. Join us in being a blessing to our church, supporting God's mission, and making a difference in the lives of others.",
@@ -290,7 +413,7 @@ export const id: Translations = {
     sundayServiceSub: {
       notes: "Reveal Sunday Notes",
       circle: "Reveal Circle (Pemuridan)",
-      pastors: "Pesan Para Gembala",
+      pastors: "Pastor’s Messages",
     },
     realCommunity: "REAL Community",
   },
@@ -384,6 +507,35 @@ export const id: Translations = {
       },
     },
   },
+  joinUsPage: {
+    meta: {
+      title: "Bergabung — Reveal Scriptura",
+      description:
+        "Terhubung dengan Reveal Scriptura melalui WhatsApp, Instagram, dan TikTok — ajukan pertanyaan, ikuti ibadah Minggu online, dan dapatkan info terbaru.",
+    },
+    heroTitle: "Bergabung",
+    heroImageAlt:
+      "Jemaat menyembah dengan tangan terangkat dalam ibadah Minggu",
+    connect: {
+      heading: "Terhubung dengan kami",
+      text: "Kami siap mendukung Anda. Jika ada pertanyaan atau membutuhkan bimbingan, jangan ragu menghubungi kami — dan ikuti kami untuk info terbaru seputar catatan khotbah, pengumuman, dan lainnya.",
+    },
+    channels: {
+      whatsapp:
+        "Hubungi kami untuk bertanya atau bergabung dalam Reveal Sunday Service secara online.",
+      instagram:
+        "Ikuti kami untuk pengumuman, info acara, dan keseharian gereja.",
+      tiktok:
+        "Tonton cuplikan ibadah Minggu dan momen singkat dari komunitas kami.",
+    },
+    slideshow: {
+      tiktokAlt: "Tangkapan layar profil TikTok Reveal Scriptura",
+      instagramAlt: "Tangkapan layar profil Instagram Reveal Scriptura",
+    },
+    watch: {
+      heading: "Tonton video kami",
+    },
+  },
   sundayServicePage: {
     meta: {
       title: "Reveal Sunday Service — Reveal Scriptura",
@@ -423,6 +575,51 @@ export const id: Translations = {
       praiseAlt: "Jemaat menyembah dalam ibadah",
       crossAlt: "Tangan terangkat dalam penyembahan di depan salib bercahaya",
       sermonAlt: "Gembala berkhotbah dalam ibadah Minggu",
+    },
+  },
+  sundayNotesPage: {
+    meta: {
+      title: "Reveal Sunday Notes — Reveal Scriptura",
+      description:
+        "Baca Reveal Sunday Notes — catatan berisi seluruh isi dan kesimpulan setiap khotbah Minggu di Reveal Scriptura.",
+    },
+    heroTitle: "Reveal Sunday Notes",
+    heroImageAlt: "Jemaat menulis catatan khotbah di buku catatan",
+  },
+  realCommunityPage: {
+    meta: {
+      title: "REAL Community — Reveal Scriptura",
+      description:
+        "REAL adalah komunitas dan gerakan berbasis online di bawah naungan Reveal untuk bertumbuh dalam kehidupan yang berpusat pada Injil melalui Sesi Topikal dan Sesi Bible Talk.",
+    },
+    heroTitle: "REAL Community",
+    heroImageAlt:
+      "Anggota komunitas REAL berkumpul bersama dalam pertemuan online",
+    intro:
+      "REAL adalah komunitas dan gerakan berbasis online di bawah naungan Reveal, yang bertujuan untuk bertumbuh bersama dalam kehidupan yang berpusat pada Injil. Sejak tahun 2021, kami terus berkembang dan membangun hubungan selama lebih dari tiga tahun. Kami mengadakan dua sesi utama dalam setiap pertemuan: Sesi Topikal dan Sesi Bible Talk.",
+    connection: {
+      heading: "Real Connection",
+      text: "Sebuah komunitas di Jakarta yang berkumpul untuk beribadah, bersekutu, dan bertumbuh secara rohani, dengan hati untuk membagikan Injil dan memberi dampak bagi kota.",
+      imageAlt:
+        "Anggota REAL Connection berkumpul bersama setelah pertemuan di Jakarta",
+    },
+    topical: {
+      heading: "Topical Session",
+      text: "Seorang pembicara membagikan Firman, lalu dilanjutkan dengan breakout room untuk diskusi dan berbagi.",
+      imageAlt: "Poster Topical Session — diadakan melalui Zoom meeting",
+    },
+    testimonies: {
+      vinnyAlt:
+        "Testimoni Vinny (25) di Bogor tentang belajar Firman Tuhan lebih dalam melalui komunitas online",
+      cherlyAlt:
+        "Testimoni Cherly (25) di Kupang tentang iman yang bertumbuh setiap hari melalui komunitas",
+      welmanAlt:
+        "Testimoni Welman (25) di Jakarta tentang REAL Community yang seperti keluarga yang saling mendukung",
+    },
+    more: {
+      sportAlt: "Anggota komunitas REAL berolahraga bersama",
+      charityAlt:
+        "Anggota komunitas REAL berbagi dengan sesama dalam kegiatan amal",
     },
   },
   giving: {
@@ -476,6 +673,22 @@ export const contact = {
     url: "https://www.youtube.com/@RevealScriptura",
   },
 };
+
+// REAL Community runs its own social accounts, separate from the church's.
+// The handle is displayed exactly as the old site prints it (typo included);
+// the links point at the real accounts, which spell it realcommunity.id.
+export const realCommunity = {
+  handle: "@realcomunnity.id",
+  instagramUrl: "https://www.instagram.com/realcommunity.id/",
+  tiktokUrl: "https://www.tiktok.com/@realcommunity.id",
+};
+
+// Join Us page videos are locale-independent; titles mirror the YouTube uploads.
+export const joinUsVideos = [
+  { id: "PWMqUZvJ3IM", title: "Doa dan kemunafikan" },
+  { id: "qaeMAUl0t2w", title: "RELEVAN - Reynard Jeremy Ali" },
+  { id: "shpbCvKGxTc", title: "Jodoh atau bodoh ?" },
+];
 
 // Sunday Service links are locale-independent, like contact info.
 export const sundayService = {

@@ -1,0 +1,142 @@
+---
+import { Image, getImage } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import heroPhoto from '../assets/sunday-notes/hero.jpg';
+import type { Translations } from '../i18n';
+
+interface Props {
+  t: Translations;
+}
+
+const { t } = Astro.props;
+
+// Hero photo renders as a CSS background so the navy overlay and centered
+// title follow the same pattern as the other pages.
+const heroBg = await getImage({ src: heroPhoto, width: 1920, format: 'webp' });
+
+// Notes are Indonesian-only and shared by both locales; the old site's
+// curated sequence is kept via the `order` frontmatter field.
+const notes = (await getCollection('sundayNotes')).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+
+// The title card is an image of text; surface its extra details (speaker,
+// date, scripture) through the alt text.
+const cardAlt = (data: (typeof notes)[number]['data']) =>
+  [data.title, data.scripture, data.speaker, data.dateLabel]
+    .filter(Boolean)
+    .join(' — ');
+---
+
+<section
+  class="page-hero"
+  role="img"
+  aria-label={t.sundayNotesPage.heroImageAlt}
+  style={`background-image: url('${heroBg.src}')`}
+>
+  <h1>{t.sundayNotesPage.heroTitle}</h1>
+</section>
+
+<section class="notes-grid">
+  {notes.map(({ data }) => (
+    <article class="note-card">
+      <Image src={data.card} alt={cardAlt(data)} width={1080} />
+      <div class="note-body">
+        <h2 class="card-heading">{data.title}</h2>
+        <p class="body-large">{data.excerpt}</p>
+      </div>
+    </article>
+  ))}
+</section>
+
+<style>
+  section {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: var(--space-3xl) var(--space-lg);
+  }
+
+  .page-hero {
+    position: relative;
+    max-width: none;
+    /* Shorter band than the other pages' full-screen heroes: this is a
+       reading page, so the notes stay within reach. */
+    min-height: 30vh;
+    min-height: 30svh;
+    background-color: var(--brand-navy);
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-lg);
+    padding: var(--space-3xl) var(--space-lg);
+  }
+
+  /* Parallax only where it renders reliably: wide pointer-driven screens.
+     Touch browsers (iOS Safari especially) mishandle background-attachment: fixed. */
+  @media (min-width: 901px) and (hover: hover) {
+    .page-hero {
+      background-attachment: fixed;
+    }
+  }
+
+  .page-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: color-mix(in srgb, var(--brand-navy) 65%, transparent);
+  }
+
+  .page-hero h1 {
+    position: relative;
+    color: var(--heading);
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.1;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-align: center;
+  }
+
+  .notes-grid {
+    padding-top: var(--space-4xl);
+    padding-bottom: var(--space-4xl);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3xl);
+    align-items: start;
+  }
+
+  .note-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+
+  .note-card img {
+    width: 100%;
+    height: auto;
+  }
+
+  .note-body {
+    padding: var(--space-2xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  @media (max-width: 900px) {
+    .page-hero h1 {
+      font-size: 28px;
+    }
+
+    .notes-grid {
+      padding-top: var(--space-3xl);
+      padding-bottom: var(--space-3xl);
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

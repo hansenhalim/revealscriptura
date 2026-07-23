@@ -1,0 +1,374 @@
+---
+import { Image, getImage } from 'astro:assets';
+import heroPhoto from '../assets/real-community.jpg';
+import realConnection from '../assets/real-community/real-connection.png';
+import testimonyCherly from '../assets/real-community/testimony-cherly.png';
+import testimonyVinny from '../assets/real-community/testimony-vinny.png';
+import testimonyWelman from '../assets/real-community/testimony-welman.png';
+import topicalSession from '../assets/real-community/topical-session.png';
+import { realCommunity, type Translations } from '../i18n';
+
+interface Props {
+  t: Translations;
+}
+
+const { t } = Astro.props;
+
+// Ministry photo sets live in per-folder globs so new photos only need to be
+// dropped in; sorted by filename to keep the slide order stable.
+const globPhotos = (glob: Record<string, unknown>) =>
+  Object.entries(glob)
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([, photo]) => photo as ImageMetadata);
+
+const sportPhotos = globPhotos(
+  import.meta.glob('../assets/real-community/sport/*', {
+    eager: true,
+    import: 'default',
+  }),
+);
+const charityPhotos = globPhotos(
+  import.meta.glob('../assets/real-community/charity/*', {
+    eager: true,
+    import: 'default',
+  }),
+);
+
+// Hero photo renders as a CSS background so the navy overlay and centered
+// title follow the same pattern as the other pages.
+const heroBg = await getImage({ src: heroPhoto, width: 1920, format: 'webp' });
+
+const features = [
+  {
+    photo: realConnection,
+    ...t.realCommunityPage.connection,
+    reverse: false,
+  },
+  {
+    photo: topicalSession,
+    ...t.realCommunityPage.topical,
+    reverse: true,
+  },
+];
+
+const testimonies = [
+  { photo: testimonyVinny, alt: t.realCommunityPage.testimonies.vinnyAlt },
+  { photo: testimonyCherly, alt: t.realCommunityPage.testimonies.cherlyAlt },
+  { photo: testimonyWelman, alt: t.realCommunityPage.testimonies.welmanAlt },
+];
+
+// Ministry names are brand identifiers, not translated copy.
+const ministries = [
+  {
+    label: 'REAL Sport',
+    photos: sportPhotos,
+    alt: t.realCommunityPage.more.sportAlt,
+  },
+  {
+    label: 'REAL Charity',
+    photos: charityPhotos,
+    alt: t.realCommunityPage.more.charityAlt,
+  },
+];
+---
+
+<section
+  class="page-hero"
+  role="img"
+  aria-label={t.realCommunityPage.heroImageAlt}
+  style={`background-image: url('${heroBg.src}')`}
+>
+  <h1>{t.realCommunityPage.heroTitle}</h1>
+  <span class="hero-handle nav-label">{realCommunity.handle}</span>
+  <div class="hero-social">
+    <a href={realCommunity.instagramUrl} aria-label="Instagram">
+      <svg
+        viewBox="0 0 24 24"
+        width="20"
+        height="20"
+        fill="currentColor"
+        aria-hidden="true"
+      >
+        <path
+          d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2-.1-1.3-.1-1.7-.1-4.9s0-3.6.1-4.9c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.3-.1 1.7-.1 4.9-.1M12 0C8.7 0 8.3 0 7 .1 5.8.1 4.9.3 4.1.6c-.8.3-1.5.7-2.2 1.4C1.3 2.6.9 3.3.6 4.1.3 4.9.1 5.8.1 7 0 8.3 0 8.7 0 12s0 3.7.1 5c0 1.2.2 2.1.5 2.9.3.8.7 1.5 1.4 2.1.6.7 1.3 1.1 2.1 1.4.8.3 1.7.5 2.9.5 1.3.1 1.7.1 5 .1s3.7 0 5-.1c1.2 0 2.1-.2 2.9-.5.8-.3 1.5-.7 2.1-1.4.7-.6 1.1-1.3 1.4-2.1.3-.8.5-1.7.5-2.9.1-1.3.1-1.7.1-5s0-3.7-.1-5c0-1.2-.2-2.1-.5-2.9-.3-.8-.7-1.5-1.4-2.1C21.4 1.3 20.7.9 19.9.6c-.8-.3-1.7-.5-2.9-.5C15.7 0 15.3 0 12 0Zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4ZM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm7.8-10.4a1.4 1.4 0 1 1-2.9 0 1.4 1.4 0 0 1 2.9 0Z"
+        ></path>
+      </svg>
+    </a>
+    <a href={realCommunity.tiktokUrl} aria-label="TikTok">
+      <svg
+        viewBox="0 0 24 24"
+        width="20"
+        height="20"
+        fill="currentColor"
+        aria-hidden="true"
+      >
+        <path
+          d="M19.6 6.7a5.6 5.6 0 0 1-3.4-3.9c-.1-.4-.1-.8-.1-1.3h-3.5v13.9a2.9 2.9 0 0 1-2.9 2.8 2.9 2.9 0 0 1 0-5.8c.3 0 .6 0 .9.1V9a6.4 6.4 0 1 0 5.5 6.3V8.6a9 9 0 0 0 5.2 1.6V6.8c-.6 0-1.2-.1-1.7-.1Z"
+        ></path>
+      </svg>
+    </a>
+  </div>
+</section>
+
+<section class="intro">
+  <p class="body-large">{t.realCommunityPage.intro}</p>
+</section>
+
+{features.map((feature) => (
+  <section class:list={['feature', { reverse: feature.reverse }]}>
+    <Image src={feature.photo} alt={feature.imageAlt} width={840} />
+    <div class="feature-copy">
+      <h2 class="display-heading">{feature.heading}</h2>
+      <p class="body-large">{feature.text}</p>
+    </div>
+  </section>
+))}
+
+<section class="testimonies">
+  {testimonies.map(({ photo, alt }) => <Image src={photo} alt={alt} width={720} />)}
+</section>
+
+<section class="more">
+  <div class="more-grid">
+    {ministries.map(({ label, photos, alt }) => (
+      <div class="ministry">
+        <div class="slideshow">
+          {photos.map((photo, index) => (
+            <Image
+              src={photo}
+              alt={alt}
+              width={1080}
+              class:list={[{ active: index === 0 }]}
+            />
+          ))}
+        </div>
+        <span class="nav-label">{label}</span>
+      </div>
+    ))}
+  </div>
+</section>
+
+<script>
+  // Same crossfade as the Join Us slideshow, one interval per slideshow.
+  const slideshows = document.querySelectorAll('.slideshow');
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    slideshows.forEach((slideshow) => {
+      const slides = slideshow.querySelectorAll('img');
+      if (slides.length < 2) return;
+      let current = 0;
+      setInterval(() => {
+        current = (current + 1) % slides.length;
+        slides.forEach((slide, index) =>
+          slide.classList.toggle('active', index === current),
+        );
+      }, 4000);
+    });
+  }
+</script>
+
+<style>
+  section {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: var(--space-3xl) var(--space-lg);
+  }
+
+  .page-hero {
+    position: relative;
+    max-width: none;
+    /* Shorter band, matching the Notes and Join Us heroes. */
+    min-height: 30vh;
+    min-height: 30svh;
+    background-color: var(--brand-navy);
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-lg);
+    padding: var(--space-3xl) var(--space-lg);
+  }
+
+  /* Parallax only where it renders reliably: wide pointer-driven screens.
+     Touch browsers (iOS Safari especially) mishandle background-attachment: fixed. */
+  @media (min-width: 901px) and (hover: hover) {
+    .page-hero {
+      background-attachment: fixed;
+    }
+  }
+
+  .page-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: color-mix(in srgb, var(--brand-navy) 65%, transparent);
+  }
+
+  .page-hero h1 {
+    position: relative;
+    color: var(--heading);
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.1;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-align: center;
+  }
+
+  .hero-social {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+  }
+
+  .hero-handle {
+    position: relative;
+    color: var(--heading);
+  }
+
+  .hero-social a {
+    display: inline-flex;
+    align-items: center;
+    color: var(--heading);
+  }
+
+  .hero-social a:hover {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .intro {
+    padding-top: var(--space-4xl);
+    text-align: center;
+    display: flex;
+    justify-content: center;
+  }
+
+  .intro .body-large {
+    max-width: 820px;
+  }
+
+  .feature {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    gap: var(--space-3xl);
+    align-items: center;
+  }
+
+  .feature img {
+    width: 100%;
+    max-width: 420px;
+    height: auto;
+    border-radius: var(--radius-md);
+    justify-self: center;
+  }
+
+  /* Mirror of the normal row: wide text column left, image column right. */
+  .feature.reverse {
+    grid-template-columns: 3fr 2fr;
+  }
+
+  .feature.reverse img {
+    order: 2;
+  }
+
+  .feature-copy {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .testimonies {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .testimonies img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-md);
+  }
+
+  .more {
+    padding-bottom: var(--space-4xl);
+    text-align: center;
+  }
+
+  /* The two slideshows sit side by side spanning the full content width. */
+  .more-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+    width: 100%;
+  }
+
+  .ministry {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-lg);
+  }
+
+  .ministry > .nav-label {
+    padding: var(--space-md) var(--space-2xl);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    background: var(--surface);
+    color: var(--heading);
+  }
+
+  /* Slides stack in the same grid cell and crossfade via the .active class.
+     A fixed square frame keeps mixed photo ratios level across the band. */
+  .slideshow {
+    display: grid;
+    width: 100%;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+
+  .slideshow img {
+    grid-area: 1 / 1;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+  }
+
+  .slideshow img.active {
+    opacity: 1;
+  }
+
+  @media (max-width: 900px) {
+    .page-hero h1 {
+      font-size: 28px;
+    }
+
+    .intro {
+      padding-top: var(--space-3xl);
+    }
+
+    .feature,
+    .feature.reverse {
+      grid-template-columns: 1fr;
+      gap: var(--space-2xl);
+    }
+
+    .feature.reverse img {
+      order: 0;
+    }
+
+    .testimonies {
+      grid-template-columns: 1fr;
+    }
+
+    .more-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+    }
+  }
+</style>

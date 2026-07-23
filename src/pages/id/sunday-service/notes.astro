@@ -1,0 +1,13 @@
+---
+import SundayNotesPage from '../../../components/SundayNotesPage.astro';
+import { id } from '../../../i18n';
+import Layout from '../../../layouts/Layout.astro';
+---
+
+<Layout
+  t={id}
+  title={id.sundayNotesPage.meta.title}
+  description={id.sundayNotesPage.meta.description}
+>
+  <SundayNotesPage t={id} />
+</Layout>

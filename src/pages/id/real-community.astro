@@ -1,0 +1,13 @@
+---
+import RealCommunityPage from '../../components/RealCommunityPage.astro';
+import { id } from '../../i18n';
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout
+  t={id}
+  title={id.realCommunityPage.meta.title}
+  description={id.realCommunityPage.meta.description}
+>
+  <RealCommunityPage t={id} />
+</Layout>

@@ -1,0 +1,13 @@
+---
+import JoinUsPage from '../../components/JoinUsPage.astro';
+import { id } from '../../i18n';
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout
+  t={id}
+  title={id.joinUsPage.meta.title}
+  description={id.joinUsPage.meta.description}
+>
+  <JoinUsPage t={id} />
+</Layout>

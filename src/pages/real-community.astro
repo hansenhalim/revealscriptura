@@ -1,0 +1,13 @@
+---
+import RealCommunityPage from '../components/RealCommunityPage.astro';
+import { en } from '../i18n';
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  t={en}
+  title={en.realCommunityPage.meta.title}
+  description={en.realCommunityPage.meta.description}
+>
+  <RealCommunityPage t={en} />
+</Layout>
